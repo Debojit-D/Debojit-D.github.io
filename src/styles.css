@@ -1,7 +1,7 @@
 :root {
   color-scheme: light dark;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   font-family: var(--font-body);
   font-synthesis: none;
@@ -563,8 +563,8 @@ a:focus-visible {
   font-family: var(--font-display);
   color: var(--ink);
   font-size: 1.85rem;
-  line-height: 1.08;
-  font-weight: 400;
+  line-height: 1.18;
+  font-weight: 440;
   letter-spacing: 0.002em;
 }
 
@@ -574,7 +574,7 @@ a:focus-visible {
   font-style: italic;
   color: var(--muted);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 440;
 }
 
 .sidebar-identity span {
@@ -776,8 +776,8 @@ a:focus-visible {
   font-family: var(--font-display);
   color: var(--ink);
   font-size: 1.72rem;
-  font-weight: 400;
-  line-height: 1.1;
+  font-weight: 440;
+  line-height: 1.22;
   letter-spacing: 0.004em;
 }
 
@@ -1118,8 +1118,8 @@ a:focus-visible {
   margin: 0;
   font-family: var(--font-display);
   color: var(--ink);
-  line-height: 1.22;
-  font-weight: 400;
+  line-height: 1.36;
+  font-weight: 460;
 }
 
 .featured-paper-copy h4 {
@@ -1338,8 +1338,8 @@ a:focus-visible {
   font-family: var(--font-display);
   color: var(--ink);
   font-size: 1.14rem;
-  font-weight: 400;
-  line-height: 1.24;
+  font-weight: 460;
+  line-height: 1.36;
 }
 
 .project-status {
@@ -1402,8 +1402,8 @@ a:focus-visible {
   display: block;
   font-family: var(--font-display);
   font-size: 1.08rem;
-  font-weight: 400;
-  line-height: 1.26;
+  font-weight: 460;
+  line-height: 1.36;
 }
 
 .timeline-main p {
@@ -1560,7 +1560,7 @@ a.timeline-place:hover {
   font-family: var(--font-display);
   color: var(--ink);
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 460;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
