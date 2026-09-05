@@ -10,7 +10,8 @@ export const siteMeta = {
 
 export const sections = [
   { id: "about", title: "About", nav: "About" },
-  { id: "metrics", title: "Metrics", nav: "Metrics", note: "Publication record snapshot." },
+  // Metrics section disabled per request
+  // { id: "metrics", title: "Metrics", nav: "Metrics", note: "Publication record snapshot." },
   { id: "news", title: "News", nav: "News" },
   {
     id: "publications",
