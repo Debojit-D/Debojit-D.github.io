@@ -33,7 +33,7 @@
   --bg-line-alpha: 0.05;
   --media-filter: grayscale(1) contrast(1.02);
   --radius: 2px;
-  --section: min(1260px, calc(100vw - 48px));
+  --section: min(1400px, calc(100vw - 64px));
   --fa-family-classic: "Font Awesome 7 Free";
   --fa-family-brands: "Font Awesome 7 Brands";
 }
@@ -386,7 +386,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 max(24px, calc((100vw - 1260px) / 2));
+  padding: 0 max(32px, calc((100vw - 1400px) / 2));
   border-bottom: 1px solid var(--border);
   background: var(--header-bg);
   backdrop-filter: blur(16px) saturate(120%);

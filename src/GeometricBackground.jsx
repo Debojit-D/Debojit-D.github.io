@@ -1,17 +1,25 @@
 import { useEffect, useRef } from "react";
+import { buildBackgroundScene } from "./backgroundGeometry.js";
 
 const DOT_SPACING_DESKTOP = 34;
 const DOT_SPACING_MOBILE = 46;
 const POINTER_RADIUS = 155;
 const PALETTE_STEPS = 12;
 const FRAME_INTERVAL = 24;
+const TABLET_BREAKPOINT = 1100;
+const MOBILE_BREAKPOINT = 720;
 
-// Normalized placements so the outlines sit in the same spots at any viewport size.
-const shapeDefs = [
-  { kind: "circle", x: 0.14, y: 0.26, size: 0.16, spin: 0.000055, depth: 26 },
-  { kind: "square", x: 0.86, y: 0.66, size: 0.13, spin: -0.00009, depth: 42 },
-  { kind: "triangle", x: 0.7, y: 0.12, size: 0.1, spin: 0.00013, depth: 18 }
+// Stroke weights relative to the --bg-line-alpha token, so both themes stay
+// inside the intended 5-9% (light) / 7-12% (dark) range for robot outlines and
+// fade every supporting mark below that.
+const STROKE_STYLES = [
+  { bucket: "primary", alphaScale: 1.6, lineWidth: 1.15, dash: null },
+  { bucket: "secondary", alphaScale: 1, lineWidth: 1, dash: null },
+  { bucket: "annotation", alphaScale: 0.78, lineWidth: 1, dash: null },
+  { bucket: "dashed", alphaScale: 0.68, lineWidth: 1, dash: [6, 7] }
 ];
+const LABEL_ALPHA_SCALE = 0.72;
+const LABEL_FONT = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 
 function GeometricBackground({ theme }) {
   const canvasRef = useRef(null);
@@ -35,11 +43,15 @@ function GeometricBackground({ theme }) {
       const alpha = baseAlpha + (glowAlpha - baseAlpha) * (step / PALETTE_STEPS);
       return `rgba(${ink}, ${alpha.toFixed(3)})`;
     });
-    const lineColor = `rgba(${ink}, ${lineAlpha.toFixed(3)})`;
+    const strokeColors = STROKE_STYLES.map(
+      (style) => `rgba(${ink}, ${(lineAlpha * style.alphaScale).toFixed(4)})`
+    );
+    const labelColor = `rgba(${ink}, ${(lineAlpha * LABEL_ALPHA_SCALE).toFixed(4)})`;
 
     const pointer = { x: -9999, y: -9999 };
     const eased = { x: -9999, y: -9999 };
     let dots = [];
+    let scene = [];
     let width = 0;
     let height = 0;
     let rafId = 0;
@@ -67,49 +79,57 @@ function GeometricBackground({ theme }) {
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       buildLattice();
+      buildScene();
     };
 
-    const drawShapes = (time) => {
-      const parallaxX = eased.x > -9000 ? (eased.x / width - 0.5) : 0;
-      const parallaxY = eased.y > -9000 ? (eased.y / height - 0.5) : 0;
+    const buildScene = () => {
+      const detail = width < MOBILE_BREAKPOINT ? 0 : width < TABLET_BREAKPOINT ? 1 : 2;
+      scene = buildBackgroundScene(width, height, detail);
+    };
 
-      context.strokeStyle = lineColor;
-      context.lineWidth = 1;
+    // The stencils are static geometry; only the parallax offset changes per
+    // frame, so each layer is a prebuilt Path2D that is simply re-stroked.
+    const drawScene = () => {
+      const parallaxX = eased.x > -9000 ? eased.x / width - 0.5 : 0;
+      const parallaxY = eased.y > -9000 ? eased.y / height - 0.5 : 0;
 
-      shapeDefs.forEach((shape) => {
-        const radius = Math.min(width, height) * shape.size;
-        const centerX = shape.x * width - parallaxX * shape.depth;
-        const centerY = shape.y * height - parallaxY * shape.depth;
+      context.lineJoin = "round";
+      context.lineCap = "round";
+
+      for (let index = 0; index < scene.length; index += 1) {
+        const layer = scene[index];
+        const offsetX = -parallaxX * layer.depth;
+        const offsetY = -parallaxY * layer.depth;
 
         context.save();
-        context.translate(centerX, centerY);
-        context.rotate(time * shape.spin);
-        context.beginPath();
+        context.translate(offsetX, offsetY);
 
-        if (shape.kind === "circle") {
-          context.arc(0, 0, radius, 0, Math.PI * 2);
-        } else if (shape.kind === "square") {
-          context.rect(-radius, -radius, radius * 2, radius * 2);
-        } else {
-          const points = 3;
-          for (let index = 0; index < points; index += 1) {
-            const angle = (index / points) * Math.PI * 2 - Math.PI / 2;
-            const pointX = Math.cos(angle) * radius;
-            const pointY = Math.sin(angle) * radius;
-            if (index === 0) context.moveTo(pointX, pointY);
-            else context.lineTo(pointX, pointY);
-          }
-          context.closePath();
+        for (let styleIndex = 0; styleIndex < STROKE_STYLES.length; styleIndex += 1) {
+          const style = STROKE_STYLES[styleIndex];
+          context.strokeStyle = strokeColors[styleIndex];
+          context.lineWidth = style.lineWidth;
+          if (style.dash) context.setLineDash(style.dash);
+          context.stroke(layer[style.bucket]);
+          if (style.dash) context.setLineDash([]);
         }
 
-        context.stroke();
+        if (layer.labels.length) {
+          context.fillStyle = labelColor;
+          context.textBaseline = "alphabetic";
+          for (let labelIndex = 0; labelIndex < layer.labels.length; labelIndex += 1) {
+            const item = layer.labels[labelIndex];
+            context.font = `${item.size}px ${LABEL_FONT}`;
+            context.fillText(item.text, item.x, item.y);
+          }
+        }
+
         context.restore();
-      });
+      }
     };
 
-    const render = (time) => {
+    const render = () => {
       context.clearRect(0, 0, width, height);
-      drawShapes(time);
+      drawScene();
 
       const radius = POINTER_RADIUS;
       const radiusSquared = radius * radius;
@@ -166,7 +186,7 @@ function GeometricBackground({ theme }) {
         eased.y += (pointer.y - eased.y) * 0.12;
       }
 
-      render(time);
+      render();
     };
 
     const start = () => {
@@ -197,7 +217,7 @@ function GeometricBackground({ theme }) {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
         resize();
-        if (motionQuery.matches) render(0);
+        if (motionQuery.matches) render();
       }, 150);
     };
 
@@ -209,8 +229,8 @@ function GeometricBackground({ theme }) {
     resize();
 
     if (motionQuery.matches) {
-      // Reduced motion: a single static lattice, no pointer reaction, no drift.
-      render(0);
+      // Reduced motion: a single static drawing, no pointer reaction, no drift.
+      render();
     } else {
       window.addEventListener("pointermove", handlePointerMove, { passive: true });
       document.addEventListener("pointerleave", handlePointerLeave);
