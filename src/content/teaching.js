@@ -1,16 +1,23 @@
 export const teaching = [
   {
-    period: "Spring 2026",
-    title: "Human-Centered Machine Learning",
-    place: "Example University",
-    href: "https://example.com/courses/hcml",
-    detail: "Graduate seminar covering evaluation, interaction, deployment, and responsible system design."
+    period: "Aug 2025 - Present",
+    title: "Teaching Assistant - ME639: Introduction to Robotics",
+    place: "IIT Gandhinagar, School of Engineering (Instructor: Prof. Madhu Vadali)",
+    detail:
+      "Conducting weekly ROS- and hardware-based lab sessions using manipulators and quadrupeds; mentoring student projects in MuJoCo/Gazebo simulation and real-robot control pipelines."
   },
   {
-    period: "Fall 2025",
-    title: "Research Software Engineering",
-    place: "Example University",
-    href: "https://example.com/courses/rse",
-    detail: "Project-based course on robust tools, documentation, testing, and release workflows."
+    period: "May 2025 - Jul 2025",
+    title: "Summer Mentorship - Robotics Research Projects",
+    place: "IITGN Robotics Lab, IIT Gandhinagar (Mentor: Prof. Harish Palanthandalam-Madapusi)",
+    detail:
+      "Mentored four undergraduate research students on end-to-end robotics pipelines covering MuJoCo simulation, ROS integration, teleoperation, and imitation-learning data collection."
+  },
+  {
+    period: "Aug 2024 - Nov 2024",
+    title: "Teaching Assistant - ME639: Introduction to Robotics",
+    place: "IIT Gandhinagar, School of Engineering (Instructor: Prof. Harish Palanthandalam-Madapusi)",
+    detail:
+      "Conducted weekly ROS- and hardware-based lab sessions using manipulators and quadrupeds, supporting both theory and implementation."
   }
 ];

@@ -1,12 +1,12 @@
 export const siteMeta = {
-  brand: "Athena Personal Academic Page",
-  title: "Athena Personal Academic Page",
+  brand: "Debojit Das",
+  title: "Debojit Das - Robotics Research",
   description:
-    "Athena Personal Academic Page is a configurable academic website framework for researchers.",
+    "Personal academic website of Debojit Das, a robotics researcher at IIT Gandhinagar and Tohoku University working on bimanual manipulation, dynamical systems control, and assistive robotics.",
   socialDescription:
-    "A configurable personal academic page framework for publications, projects, teaching, talks, service, and research metrics.",
-  url: "https://example.com/",
-  image: "https://example.com/images/athena-og.svg",
+    "Debojit Das - robotics researcher working on bimanual manipulation, dynamical systems control, redundancy optimization, and tactile-sensing-driven assistive robotics.",
+  url: "https://debojit-d.github.io/",
+  image: "https://debojit-d.github.io/images/athena-og.svg",
   repositoryUrl: "https://github.com/AaronZ345/Athena-personal-academic-page"
 };
 
@@ -30,9 +30,7 @@ export const sections = [
 ];
 
 export const publicationGroups = [
-  "Machine Learning",
-  "Human-Computer Interaction",
-  "Data Systems",
-  "Digital Humanities",
-  "Other"
+  "Bimanual Manipulation & Control",
+  "Manipulability & Redundancy Optimization",
+  "Learning Control"
 ];

@@ -1,96 +1,67 @@
 export const publications = [
   {
-    title: "Reliable Agents for Scientific Discovery",
-    venue: "ICML 2026",
+    title: "Consensus-Driven Dynamical Systems Control for Dual-Arm Handover",
+    venue: "IEEE International Conference on Robotics and Automation (ICRA) 2026, Vienna, Austria",
     year: "2026",
     type: "Conference",
-    group: "Machine Learning",
-    authors: "Researcher Name, Collaborator A, Collaborator B",
+    group: "Bimanual Manipulation & Control",
+    authors: "D. Das, S. Jain, R. Kumar, and H. J. Palanthandalam-Madapusi",
     summary:
-      "A framework for evaluating autonomous research agents with reproducible protocols and calibrated uncertainty.",
-    tags: ["agents", "evaluation", "reproducibility"],
+      "A dynamical-systems bimanual handover controller that enables phase-locked, obstacle-aware, real-time handovers by unifying asynchronous and synchronous motion via coupled translational and quaternion DS laws. Earlier version presented as a Late Breaking Report at IEEE-RAS Humanoids 2025, Seoul, Korea.",
+    tags: ["bimanual manipulation", "dynamical systems", "handover", "humanoids"],
     image: "images/publication-placeholder.svg",
-    featured: true,
-    links: [
-      { label: "Paper", href: "https://example.com/paper.pdf" },
-      { label: "Code", href: "https://github.com/example/reliable-agents", stars: 128 },
-      { label: "Dataset", href: "https://example.com/dataset" },
-      { label: "Slides", href: "https://example.com/slides" },
-      { label: "BibTeX", href: "https://example.com/cite.bib" }
-    ]
+    featured: true
   },
   {
-    title: "Interactive Interfaces for Model Debugging",
-    venue: "CHI 2026",
+    title: "Task-Specific Manipulability Metrics for Redundancy Optimization in Cooperative Manipulation",
+    venue: "Industrial Robot: The International Journal of Robotics Research and Application",
     year: "2026",
-    type: "Conference",
-    group: "Human-Computer Interaction",
-    authors: "Collaborator C, Researcher Name, Collaborator D",
-    summary:
-      "A design and systems study of interfaces that help domain experts inspect, compare, and repair model behavior.",
-    tags: ["interfaces", "debugging", "human-ai"],
-    image: "images/publication-placeholder.svg",
-    featured: true,
-    links: [
-      { label: "Paper", href: "https://example.com/chi-paper" },
-      { label: "Demo", href: "https://example.com/demo" },
-      { label: "Video", href: "https://example.com/video" }
-    ]
-  },
-  {
-    title: "A Dataset Lifecycle for Auditable Research Artifacts",
-    venue: "NeurIPS Datasets and Benchmarks 2025",
-    year: "2025",
-    type: "Dataset",
-    group: "Data Systems",
-    authors: "Researcher Name, Collaborator E, Collaborator F",
-    summary:
-      "A dataset release workflow with validation checks, provenance metadata, versioned changelogs, and model-facing cards.",
-    tags: ["datasets", "provenance", "benchmarks"],
-    links: [
-      { label: "Paper", href: "https://example.com/dataset-paper" },
-      { label: "Dataset", href: "https://example.com/dataset" },
-      { label: "Documentation", href: "https://example.com/docs" }
-    ]
-  },
-  {
-    title: "Measuring Longitudinal Change in Digital Archives",
-    venue: "DH 2025",
-    year: "2025",
-    type: "Conference",
-    group: "Digital Humanities",
-    authors: "Collaborator G, Researcher Name",
-    tags: ["archives", "measurement", "digital humanities"],
-    links: [
-      { label: "Paper", href: "https://example.com/archive-paper" },
-      { label: "Poster", href: "https://example.com/poster" }
-    ]
-  },
-  {
-    title: "Practical Notes on Academic Web Infrastructure",
-    venue: "Technical Report",
-    year: "2025",
-    type: "Report",
-    group: "Other",
-    authors: "Researcher Name",
-    tags: ["web", "tooling", "open source"],
-    links: [
-      { label: "Report", href: "https://example.com/report" },
-      { label: "Project", href: "https://example.com/project" }
-    ]
-  },
-  {
-    title: "Transparent Review Workflows for Open Research",
-    venue: "JOSS 2024",
-    year: "2024",
     type: "Journal",
-    group: "Data Systems",
-    authors: "Researcher Name, Collaborator H",
-    tags: ["open science", "review", "software"],
-    links: [
-      { label: "Paper", href: "https://example.com/journal-paper" },
-      { label: "DOI", href: "https://doi.org/10.0000/example" },
-      { label: "Code", href: "https://github.com/example/review-workflows", stars: 42 }
-    ]
+    group: "Manipulability & Redundancy Optimization",
+    authors: "D. Das, S. Barat, and H. J. Palanthandalam-Madapusi",
+    summary:
+      "Provisionally accepted. Task-specific velocity, force, and directional-force manipulability metrics for redundancy optimization in cooperative (bimanual) manipulation, validated on a 7-DoF Franka system.",
+    tags: ["redundancy optimization", "manipulability", "cooperative manipulation"],
+    image: "images/publication-placeholder.svg",
+    featured: true
+  },
+  {
+    title: "Towards Coordinated Dual-Arm Snap-Fit Assembly Skill for Delicate Applications",
+    venue: "Under review, IEEE Transactions on Automation Science and Engineering (T-ASE)",
+    year: "2025",
+    type: "Journal",
+    group: "Bimanual Manipulation & Control",
+    authors: "S. Kumar, S. Barat, D. Das, S. Jain, R. Kumar, and H. J. Palanthandalam-Madapusi",
+    tags: ["assembly", "bimanual manipulation", "compliance control"],
+    links: [{ label: "Preprint", href: "https://arxiv.org/abs/2511.18153" }]
+  },
+  {
+    title: "Grasp Dexterity Index: Manipulability of Objects Grasped by Multi-fingered Robotic Hands",
+    venue: "Manuscript submitted to the International Journal of Humanoid Robotics",
+    year: "2026",
+    type: "Journal",
+    group: "Manipulability & Redundancy Optimization",
+    authors: "S. Barat, V. K. Joshi, D. Das, and H. J. Palanthandalam-Madapusi",
+    tags: ["grasping", "manipulability", "multi-fingered hands"],
+    links: [{ label: "Preprint", href: "https://doi.org/10.21203/rs.3.rs-9620791/v1" }]
+  },
+  {
+    title:
+      "Geometric Transfer and Few-Trial Adaptation of Iteratively Learned Control Inputs for Robotic Manipulation Against Unknown Resistance Fields",
+    venue: "Under review, Industrial Robot: The International Journal of Robotics Research and Application",
+    year: "2026",
+    type: "Journal",
+    group: "Learning Control",
+    authors: "S. Barat, S. Patidar, D. Das, S. Jadav, S. Kumar, and H. J. Palanthandalam-Madapusi",
+    tags: ["iterative learning control", "adaptation", "manipulation"]
+  },
+  {
+    title: "Dynamical-System Coordination Primitives for Bimanual Manipulation via Semantic Grounding",
+    venue: "Manuscript in preparation; experimental validation in progress",
+    year: "2026",
+    type: "Report",
+    group: "Bimanual Manipulation & Control",
+    authors: "D. Das, H. Ruparel, and H. J. Palanthandalam-Madapusi",
+    tags: ["bimanual manipulation", "semantic grounding", "dynamical systems"]
   }
 ];
