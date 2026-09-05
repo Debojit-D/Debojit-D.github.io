@@ -1,29 +1,3 @@
-import abacusIcon from "@iconify-icons/twemoji/abacus";
-import artistPaletteIcon from "@iconify-icons/twemoji/artist-palette";
-import barChartIcon from "@iconify-icons/twemoji/bar-chart";
-import booksIcon from "@iconify-icons/twemoji/books";
-import bookmarkTabsIcon from "@iconify-icons/twemoji/bookmark-tabs";
-import briefcaseIcon from "@iconify-icons/twemoji/briefcase";
-import calendarIcon from "@iconify-icons/twemoji/calendar";
-import cardFileBoxIcon from "@iconify-icons/twemoji/card-file-box";
-import chartIncreasingIcon from "@iconify-icons/twemoji/chart-increasing";
-import classicalBuildingIcon from "@iconify-icons/twemoji/classical-building";
-import clipboardIcon from "@iconify-icons/twemoji/clipboard";
-import globeIcon from "@iconify-icons/twemoji/globe-with-meridians";
-import graduationCapIcon from "@iconify-icons/twemoji/graduation-cap";
-import identificationCardIcon from "@iconify-icons/twemoji/identification-card";
-import ledgerIcon from "@iconify-icons/twemoji/ledger";
-import lightBulbIcon from "@iconify-icons/twemoji/light-bulb";
-import memoIcon from "@iconify-icons/twemoji/memo";
-import microscopeIcon from "@iconify-icons/twemoji/microscope";
-import newspaperIcon from "@iconify-icons/twemoji/newspaper";
-import openBookIcon from "@iconify-icons/twemoji/open-book";
-import rocketIcon from "@iconify-icons/twemoji/rocket";
-import schoolIcon from "@iconify-icons/twemoji/school";
-import speechBalloonIcon from "@iconify-icons/twemoji/speech-balloon";
-import telescopeIcon from "@iconify-icons/twemoji/telescope";
-import trophyIcon from "@iconify-icons/twemoji/trophy";
-
 export const profileIconMap = {
   Email: "fa-solid fa-envelope",
   Scholar: "ai ai-google-scholar",
@@ -45,70 +19,19 @@ export const profileIconMap = {
   Twitter: "fa-solid fa-link"
 };
 
-export const fallbackTitleIcon = openBookIcon;
-export const venueIcon = bookmarkTabsIcon;
-
-export const sectionIconMap = {
-  About: identificationCardIcon,
-  "About Me": identificationCardIcon,
-  Metrics: barChartIcon,
-  News: newspaperIcon,
-  Publications: booksIcon,
-  Projects: lightBulbIcon,
-  Teaching: schoolIcon,
-  Talks: speechBalloonIcon,
-  Education: graduationCapIcon,
-  Experience: briefcaseIcon,
-  Awards: trophyIcon,
-  Honors: trophyIcon,
-  "Academic Service": clipboardIcon,
-  Service: clipboardIcon
-};
-
-export const publicationGroupIconMap = {
-  "Machine Learning": microscopeIcon,
-  "Human-Computer Interaction": artistPaletteIcon,
-  "Data Systems": abacusIcon,
-  "Digital Humanities": openBookIcon,
-  "Natural Language Processing": speechBalloonIcon,
-  "Computer Vision": telescopeIcon,
-  Robotics: rocketIcon,
-  Systems: ledgerIcon,
-  Security: clipboardIcon,
-  Theory: chartIncreasingIcon,
-  Other: cardFileBoxIcon,
-  Others: cardFileBoxIcon
-};
-
-export const serviceIconMap = {
-  "Conference Reviewer": classicalBuildingIcon,
-  "Journal Reviewer": ledgerIcon,
-  "Program Committee": clipboardIcon,
-  "Area Chair": clipboardIcon,
-  Organizer: calendarIcon,
-  Mentor: graduationCapIcon
-};
-
-export const newsIconMap = {
-  release: rocketIcon,
-  accepted: bookmarkTabsIcon,
-  dataset: cardFileBoxIcon,
-  code: memoIcon,
-  talk: speechBalloonIcon,
-  teaching: schoolIcon,
-  award: trophyIcon,
-  career: briefcaseIcon,
-  degree: graduationCapIcon,
-  visit: globeIcon,
-  service: clipboardIcon
-};
-
-export const statusIconMap = {
-  Active: rocketIcon,
-  Prototype: lightBulbIcon,
-  Maintained: clipboardIcon,
-  Archived: cardFileBoxIcon,
-  Released: bookmarkTabsIcon
+// Monochrome geometry replaces the coloured emoji markers: square, diamond, or circle.
+export const newsShapeMap = {
+  release: "diamond",
+  accepted: "square",
+  dataset: "square",
+  code: "diamond",
+  talk: "diamond",
+  teaching: "square",
+  award: "round",
+  career: "square",
+  degree: "round",
+  visit: "round",
+  service: "round"
 };
 
 export function getActionIcon(link) {

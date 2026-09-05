@@ -13,12 +13,7 @@ export const sections = [
   // Metrics section disabled per request
   // { id: "metrics", title: "Metrics", nav: "Metrics", note: "Publication record snapshot." },
   { id: "news", title: "News", nav: "News" },
-  {
-    id: "publications",
-    title: "Publications",
-    nav: "Publications",
-    note: "Use * in author strings for equal contribution."
-  },
+  { id: "publications", title: "Publications", nav: "Publications" },
   { id: "teaching", title: "Teaching", nav: "Teaching", enabled: false },
   { id: "talks", title: "Talks", nav: "Talks", enabled: false },
   { id: "education", title: "Education", nav: "Education" },

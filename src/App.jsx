@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Icon } from "@iconify/react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import GeometricBackground from "./GeometricBackground.jsx";
 import {
   awards,
   education,
@@ -15,20 +15,11 @@ import {
   talks,
   teaching
 } from "./content/index.js";
-import {
-  fallbackTitleIcon,
-  getActionIcon,
-  newsIconMap,
-  profileIconMap,
-  publicationGroupIconMap,
-  sectionIconMap,
-  serviceIconMap,
-  statusIconMap,
-  venueIcon
-} from "./icons.js";
+import { getActionIcon, newsShapeMap, profileIconMap } from "./icons.js";
 
-const chartColors = ["#245a96", "#5c9ec6", "#7a8f36", "#b66f36", "#7b6fb3", "#3f8b78", "#b75d69"];
+const chartColors = ["#111111", "#3d3d3d", "#666666", "#8c8c8c", "#b0b0b0", "#cfcfcf", "#e4e4e4"];
 const githubStatsCacheTtl = 1000 * 60 * 5;
+const themeStorageKey = "theme-preference";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,6 +35,11 @@ function App() {
       .map((section) => ({ href: `#${section.id}`, label: section.nav ?? section.title })),
     [visibleSections]
   );
+  const sectionIds = useMemo(() => navItems.map((item) => item.href.slice(1)), [navItems]);
+  const progressRef = useRef(null);
+  const activeSection = useScrollTracking(sectionIds, progressRef);
+
+  useRevealOnScroll();
 
   const sectionContent = {
     about: (
@@ -59,9 +55,7 @@ function App() {
         {news.map((item) => (
           <a className="news-row" href={item.href} key={`${item.date}-${item.text}`} target="_blank" rel="noreferrer">
             <time>{item.date}</time>
-            <span className="news-icon" aria-hidden="true">
-              <SemanticIcon icon={newsIconMap[item.icon] ?? newsIconMap.accepted} />
-            </span>
+            <span className="news-marker" data-shape={newsShapeMap[item.icon] ?? "square"} aria-hidden="true" />
             <span className="news-text">{item.text}</span>
             <i className="news-external fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />
           </a>
@@ -89,7 +83,8 @@ function App() {
     document.title = siteMeta.title;
   }, []);
 
-  useEffect(() => {
+  // Layout effect so the canvas backdrop reads the new palette after the swap, not before.
+  useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
   }, [theme]);
@@ -97,6 +92,8 @@ function App() {
   useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (event) => {
+      // A stored choice wins over the system preference.
+      if (readStoredTheme()) return;
       setTheme(event.matches ? "dark" : "light");
     };
 
@@ -104,28 +101,38 @@ function App() {
     return () => media.removeEventListener("change", handleChange);
   }, []);
 
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    storeTheme(nextTheme);
+    setTheme(nextTheme);
+  };
+
   return (
     <>
+      <GeometricBackground theme={theme} />
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
       <header className="site-header">
         <a className="brand" href="#about" aria-label={`${siteMeta.brand} home`}>
-          <img
-            src="images/athena-mark.svg"
-            width="30"
-            height="30"
-            alt=""
-            aria-hidden="true"
-          />
+          <span className="brand-mark" aria-hidden="true">{getInitials(siteMeta.brand)}</span>
           <span>{siteMeta.brand}</span>
         </a>
         <nav className={`primary-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href.slice(1);
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={isActive ? "is-active" : undefined}
+                aria-current={isActive ? "true" : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="header-actions">
           <button
@@ -134,7 +141,7 @@ function App() {
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             aria-pressed={theme === "dark"}
             title={theme === "dark" ? "Light mode" : "Dark mode"}
-            onClick={() => setTheme((currentTheme) => currentTheme === "dark" ? "light" : "dark")}
+            onClick={toggleTheme}
           >
             <i className={theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon"} aria-hidden="true" />
           </button>
@@ -148,6 +155,7 @@ function App() {
             <i className={menuOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars"} aria-hidden="true" />
           </button>
         </div>
+        <span className="scroll-progress" ref={progressRef} aria-hidden="true" />
       </header>
 
       <div className="page-shell">
@@ -156,13 +164,17 @@ function App() {
         </aside>
 
         <main className="content-main" id="main-content">
-          {visibleSections.map((section) => {
+          {visibleSections.map((section, index) => {
             const content = sectionContent[section.id];
             if (!content) return null;
 
             return (
-              <section className={`section${section.id === "about" ? " about-section" : ""}`} id={section.id} key={section.id}>
-                <SectionTitle title={section.title} note={section.note} />
+              <section
+                className={`section reveal${section.id === "about" ? " about-section" : ""}`}
+                id={section.id}
+                key={section.id}
+              >
+                <SectionTitle title={section.title} note={section.note} index={index + 1} />
                 {content}
               </section>
             );
@@ -172,12 +184,14 @@ function App() {
 
       <footer className="site-footer">
         <div className="section footer-inner">
-          <span>{siteMeta.brand}</span>
+          <span>
+            {siteMeta.brand} — {new Date().getFullYear()}
+          </span>
           <div className="footer-links">
             {siteMeta.repositoryUrl ? (
               <a href={siteMeta.repositoryUrl} target="_blank" rel="noreferrer">
                 <i className="fa-brands fa-github" aria-hidden="true" />
-                <span>Built with Athena</span>
+                <span>Source</span>
               </a>
             ) : null}
             {profile.email ? <a href={`mailto:${profile.email}`}>{profile.email}</a> : null}
@@ -193,7 +207,7 @@ function SidebarProfile() {
   const organizationText = [profile.role, profile.organization ? `at ${profile.organization}` : ""].filter(Boolean).join(" ");
 
   return (
-    <div className="sidebar-card">
+    <div className="sidebar-card reveal">
       <div className="sidebar-avatar-frame">
         {profile.avatar ? (
           <img
@@ -258,12 +272,7 @@ function SidebarProfile() {
               {news.slice(0, 4).map((item) => (
                 <a href={item.href} key={`${item.date}-${item.text}`} target="_blank" rel="noreferrer">
                   <time>{item.date}</time>
-                  <span className="sidebar-news-text">
-                    <span className="sidebar-news-icon" aria-hidden="true">
-                      <SemanticIcon icon={newsIconMap[item.icon] ?? newsIconMap.accepted} />
-                    </span>
-                    <span>{item.text}</span>
-                  </span>
+                  <span className="sidebar-news-text">{item.text}</span>
                 </a>
               ))}
             </div>
@@ -370,7 +379,6 @@ function PublicationGroup({ title, papers, githubStats }) {
   return (
     <section className="publication-group" aria-labelledby={`group-${slugify(title)}`}>
       <h3 id={`group-${slugify(title)}`}>
-        <TitleIcon icon={publicationGroupIconMap[title] ?? fallbackTitleIcon} compact />
         <span>{title}</span>
       </h3>
       {highlighted.length ? (
@@ -445,10 +453,9 @@ function PublicationMeta({ paper, compact = false }) {
 
   return (
     <span className={className}>
-      <SemanticIcon icon={venueIcon} />
       <span>{paper.venue}</span>
       {paper.year ? <time>{paper.year}</time> : null}
-      {paper.type ? <span>{paper.type}</span> : null}
+      {paper.type ? <span className="venue-type">{paper.type}</span> : null}
     </span>
   );
 }
@@ -460,12 +467,7 @@ function ProjectList({ items, githubStats }) {
         <article className="project-card" key={project.title}>
           <div className="project-card-head">
             <h3>{project.title}</h3>
-            {project.status ? (
-              <span className="project-status">
-                <SemanticIcon icon={statusIconMap[project.status] ?? fallbackTitleIcon} />
-                {project.status}
-              </span>
-            ) : null}
+            {project.status ? <span className="project-status">{project.status}</span> : null}
           </div>
           <p>{project.summary}</p>
           {project.tags?.length ? <TagList items={project.tags} className="project-tags" /> : null}
@@ -488,28 +490,20 @@ function ProfileLinks() {
   );
 }
 
-function SectionTitle({ title, note }) {
+function SectionTitle({ title, note, index }) {
   return (
     <div className="section-title">
       <h2>
-        <TitleIcon icon={sectionIconMap[title] ?? fallbackTitleIcon} />
+        {index ? (
+          <span className="section-index" aria-hidden="true">
+            {String(index).padStart(2, "0")}
+          </span>
+        ) : null}
         <span>{title}</span>
       </h2>
       {note ? <p>{note}</p> : null}
     </div>
   );
-}
-
-function TitleIcon({ icon, compact = false }) {
-  return (
-    <span className={compact ? "title-icon title-icon-compact" : "title-icon"} aria-hidden="true">
-      <SemanticIcon icon={icon} />
-    </span>
-  );
-}
-
-function SemanticIcon({ icon }) {
-  return <Icon className="semantic-icon" icon={icon} aria-hidden="true" />;
 }
 
 function TagList({ items, className }) {
@@ -605,7 +599,6 @@ function ServiceList({ items }) {
       {items.map((group) => (
         <section className="service-group" key={group.category}>
           <h3>
-            <TitleIcon icon={serviceIconMap[group.category] ?? fallbackTitleIcon} compact />
             <span>{group.category}</span>
           </h3>
           <div className="service-chip-grid">
@@ -896,7 +889,102 @@ function highlightAuthors(authors = "") {
 
 function getInitialTheme() {
   if (typeof window === "undefined") return "light";
+  const stored = readStoredTheme();
+  if (stored) return stored;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function readStoredTheme() {
+  try {
+    const stored = window.localStorage.getItem(themeStorageKey);
+    return stored === "dark" || stored === "light" ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
+function storeTheme(theme) {
+  try {
+    window.localStorage.setItem(themeStorageKey, theme);
+  } catch {
+    // Preference persistence is optional.
+  }
+}
+
+// Drives the header progress bar imperatively and the nav highlight through state,
+// so scrolling never re-renders the page for the progress bar alone.
+function useScrollTracking(sectionIds, progressRef) {
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      const scrolled = window.scrollY;
+
+      if (progressRef.current) {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? Math.min(scrolled / scrollable, 1) : 0;
+        progressRef.current.style.setProperty("--scroll-progress", progress.toFixed(4));
+      }
+
+      if (sectionIds.length) {
+        const marker = scrolled + 150;
+        let current = sectionIds[0];
+        sectionIds.forEach((id) => {
+          const element = document.getElementById(id);
+          if (!element) return;
+          const top = element.getBoundingClientRect().top + scrolled;
+          if (top <= marker) current = id;
+        });
+        setActiveSection(current);
+      }
+    };
+
+    const handleScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [sectionIds, progressRef]);
+
+  return activeSection;
+}
+
+function useRevealOnScroll() {
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll(".reveal"));
+    if (!nodes.length) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      nodes.forEach((node) => node.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -40px 0px", threshold: 0.02 }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
 }
 
 function runAfterInitialLoad(callback) {

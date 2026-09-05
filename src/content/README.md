@@ -61,7 +61,7 @@ export const publicationGroups = [
 
 Each publication’s `group` must match one of these strings exactly if you want it in that position. Groups present in `publications.js` but absent from this array are appended alphabetically. A paper with no `group` is counted by the metrics dashboard but is not rendered in the publication section, so treat `group` as required.
 
-Custom group names work. Names not listed in `publicationGroupIconMap` use the default group icon.
+Custom group names work; each group is rendered as a typographic rule heading, so no icon registration is needed.
 
 ## `profile.js`
 
