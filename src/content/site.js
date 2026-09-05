@@ -1,13 +1,11 @@
 export const siteMeta = {
   brand: "Debojit Das",
-  title: "Debojit Das - Robotics Research",
-  description:
-    "Personal academic website of Debojit Das, a robotics researcher at IIT Gandhinagar and Tohoku University working on bimanual manipulation, dynamical systems control, and assistive robotics.",
-  socialDescription:
-    "Debojit Das - robotics researcher working on bimanual manipulation, dynamical systems control, redundancy optimization, and tactile-sensing-driven assistive robotics.",
-  url: "https://debojit-d.github.io/",
-  image: "https://debojit-d.github.io/images/athena-og.svg",
-  repositoryUrl: "https://github.com/AaronZ345/Athena-personal-academic-page"
+  title: "Debojit Das — Bimanual & Contact-Rich Manipulation",
+  description: "Dynamical-systems control for bimanual and contact-rich robotic manipulation.",
+  socialDescription: "Building dynamical-systems control for bimanual robots that coordinate, make contact, and adapt through touch and reasoning.",
+  url: "https://debojit-d.github.io/", // TODO: change to https://debojit.in/ once the domain is repointed
+  image: "https://debojit-d.github.io/images/og.png", // TODO: add a real 1200x630 image at public/images/og.png
+  repositoryUrl: ""
 };
 
 export const sections = [
@@ -20,17 +18,15 @@ export const sections = [
     nav: "Publications",
     note: "Use * in author strings for equal contribution."
   },
-  { id: "teaching", title: "Teaching", nav: "Teaching" },
-  { id: "talks", title: "Talks", nav: "Talks" },
+  { id: "teaching", title: "Teaching", nav: "Teaching", enabled: false },
+  { id: "talks", title: "Talks", nav: "Talks", enabled: false },
   { id: "education", title: "Education", nav: "Education" },
   { id: "experience", title: "Experience", nav: "Experience" },
-  { id: "awards", title: "Awards", nav: "Awards" },
-  { id: "service", title: "Academic Service", nav: "Service" },
+  { id: "awards", title: "Awards", nav: "Awards", enabled: false },
+  { id: "service", title: "Academic Service", nav: "Service", enabled: false },
   { id: "projects", title: "Projects", nav: "Projects" }
 ];
 
 export const publicationGroups = [
-  "Bimanual Manipulation & Control",
-  "Manipulability & Redundancy Optimization",
-  "Learning Control"
+  "Robotics & Control"
 ];

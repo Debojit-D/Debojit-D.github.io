@@ -1,45 +1,31 @@
 export const profile = {
   name: "Debojit Das",
-  nativeName: "",
-  role: "Dual-Degree Researcher (B.Tech-M.Tech), Mechanical Engineering",
+  role: "Dual-Degree Researcher, Robotics",
   organization: "IIT Gandhinagar",
-  organizationUrl: "https://iitgn.ac.in/",
-  location: "Gandhinagar, India (currently visiting Tohoku University, Japan)",
+  location: "Sendai, Japan",
   email: "personal@debojit.in",
-  avatar: "",
+  avatar: "", // TODO: add images/avatar.webp for a real photo, leave empty for now
   focus: [
-    "Bimanual Manipulation",
     "Dynamical Systems Control",
-    "Redundancy Optimization",
-    "Tactile Sensing",
-    "Assistive Robotics",
-    "Robot Learning"
+    "Bimanual Manipulation",
+    "Contact-Rich Manipulation",
+    "Tactile Sensing"
   ],
-  highlightNames: ["D. Das"],
+  highlightNames: ["Debojit Das", "D. Das"],
   about: [
+    "I build dynamical-systems-based control architectures that let bimanual robots coordinate, make and maintain contact, and adapt through touch and high-level reasoning — without giving up the stability guarantees of classical control.",
     [
-      "I am ",
-      { text: "Debojit Das", strong: true },
-      ", a dual-degree (B.Tech-M.Tech) researcher in Mechanical Engineering at ",
-      { text: "IIT Gandhinagar", href: "https://iitgn.ac.in/" },
-      ", currently a Visiting Foreign Researcher at the Smart Robots Design Lab, ",
-      { text: "Tohoku University", href: "https://www.tohoku.ac.jp/en/" },
-      ", under the JST LOTUS Programme."
-    ],
-    "My research centers on bimanual and dexterous manipulation, dynamical-systems control, and redundancy optimization for cooperative robots - spanning contact-rich assembly, handover, transport, and tactile-sensing-driven assistive robotics on humanoid and multi-arm platforms.",
-    [
-      "I also work with the IITGN Robotics Lab and the Advanced Robotics Team at ",
-      { text: "Addverb Technologies", href: "https://addverb.com/" },
-      ". I'm always happy to connect on robotics research, collaboration, or mentoring - reach me at ",
-      { text: "personal@debojit.in", href: "mailto:personal@debojit.in" },
-      "."
+      "I am currently a Visiting Foreign Researcher at the Smart Robots Design Lab, Tohoku University, advised by Prof. Ankit A. Ravankar, and a Student Researcher at the ",
+      { text: "IITGN Robotics Lab", href: "https://debojit-d.github.io/", strong: false },
+      " under Dr. Harish Palanthandalam-Madapusi."
     ]
   ],
   links: [
     { label: "Email", href: "mailto:personal@debojit.in", icon: "Email" },
+    { label: "Google Scholar", href: "TODO_ADD_YOUR_SCHOLAR_URL", icon: "Google Scholar" },
     { label: "GitHub", href: "https://github.com/Debojit-D", icon: "GitHub" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/debojitdas842", icon: "LinkedIn" },
-    { label: "Instagram", href: "https://www.instagram.com/debojit.das.iit/", icon: "Website" },
-    { label: "Website", href: "https://debojit.in", icon: "Website" }
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/debojitdas842/", icon: "LinkedIn" },
+    { label: "ORCID", href: "https://orcid.org/0009-0003-7027-0102", icon: "ORCID" },
+    { label: "CV", href: "cv.pdf", icon: "CV" }
   ]
 };
