@@ -1,10 +1,12 @@
+import avatarImage from "../pictures/self/IEEEHumanoids-bw.jpg";
+
 export const profile = {
   name: "Debojit Das",
   role: "Dual-Degree Researcher, Robotics",
   organization: "IIT Gandhinagar",
   location: "Sendai, Japan",
   email: "personal@debojit.in",
-  avatar: "", // TODO: add images/avatar.webp for a real photo, leave empty for now
+  avatar: avatarImage,
   focus: [
     "Dynamical Systems Control",
     "Bimanual Manipulation",
