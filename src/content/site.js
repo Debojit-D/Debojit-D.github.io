@@ -20,7 +20,9 @@ export const sections = [
   { id: "experience", title: "Experience", nav: "Experience" },
   { id: "awards", title: "Awards", nav: "Awards", enabled: false },
   { id: "service", title: "Academic Service", nav: "Service", enabled: false },
-  { id: "projects", title: "Projects", nav: "Projects" }
+  { id: "projects", title: "Projects", nav: "Projects" },
+  // The header's Blog pill is this section's nav entry, so it has none of its own.
+  { id: "writing", title: "Writing", nav: false, note: "Latest from the blog." }
 ];
 
 export const publicationGroups = [

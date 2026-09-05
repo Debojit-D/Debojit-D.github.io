@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import GeometricBackground from "./GeometricBackground.jsx";
+import { BlogIndex, BlogPost, WritingHighlights, getPostBySlug } from "./Blog.jsx";
+import { renderRichText, slugify } from "./richText.jsx";
 import {
   awards,
   education,
@@ -20,10 +22,14 @@ import { getActionIcon, newsShapeMap, profileIconMap } from "./icons.js";
 const chartColors = ["#111111", "#3d3d3d", "#666666", "#8c8c8c", "#b0b0b0", "#cfcfcf", "#e4e4e4"];
 const githubStatsCacheTtl = 1000 * 60 * 5;
 const themeStorageKey = "theme-preference";
+// Stable identity so the scroll-tracking effect does not re-subscribe per render.
+const emptySectionIds = [];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState(getInitialTheme);
+  const route = useHashRoute();
+  const isBlogRoute = route.name === "blog" || route.name === "post";
   const githubStatsSources = useMemo(() => [publications, projects], []);
   const githubStats = useGithubRepoStats(githubStatsSources);
   const stats = useMemo(() => getPublicationStats(publications), []);
@@ -35,11 +41,14 @@ function App() {
       .map((section) => ({ href: `#${section.id}`, label: section.nav ?? section.title })),
     [visibleSections]
   );
-  const sectionIds = useMemo(() => navItems.map((item) => item.href.slice(1)), [navItems]);
+  const homeSectionIds = useMemo(() => navItems.map((item) => item.href.slice(1)), [navItems]);
+  const sectionIds = isBlogRoute ? emptySectionIds : homeSectionIds;
   const progressRef = useRef(null);
   const activeSection = useScrollTracking(sectionIds, progressRef);
+  const routeKey = route.name === "post" ? `post:${route.slug}` : route.name;
 
-  useRevealOnScroll();
+  useRevealOnScroll(routeKey);
+  useRouteScroll(route);
 
   const sectionContent = {
     about: (
@@ -76,12 +85,20 @@ function App() {
     education: <Timeline items={education} />,
     experience: <Timeline items={experience} />,
     awards: <HonorsList items={awards} />,
-    service: <ServiceList items={services} />
+    service: <ServiceList items={services} />,
+    writing: <WritingHighlights />
   };
 
   useEffect(() => {
-    document.title = siteMeta.title;
-  }, []);
+    const post = route.name === "post" ? getPostBySlug(route.slug) : null;
+    if (post) {
+      document.title = `${post.title} — ${siteMeta.brand}`;
+    } else if (route.name === "blog") {
+      document.title = `Writing — ${siteMeta.brand}`;
+    } else {
+      document.title = siteMeta.title;
+    }
+  }, [route]);
 
   // Layout effect so the canvas backdrop reads the new palette after the swap, not before.
   useLayoutEffect(() => {
@@ -120,7 +137,7 @@ function App() {
         </a>
         <nav className={`primary-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
           {navItems.map((item) => {
-            const isActive = activeSection === item.href.slice(1);
+            const isActive = !isBlogRoute && activeSection === item.href.slice(1);
             return (
               <a
                 key={item.href}
@@ -133,6 +150,15 @@ function App() {
               </a>
             );
           })}
+          <a
+            className={`nav-route${isBlogRoute ? " is-active" : ""}`}
+            href="#/blog"
+            aria-current={isBlogRoute ? "page" : undefined}
+            onClick={() => setMenuOpen(false)}
+          >
+            <span>Blog</span>
+            <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+          </a>
         </nav>
         <div className="header-actions">
           <button
@@ -158,6 +184,11 @@ function App() {
         <span className="scroll-progress" ref={progressRef} aria-hidden="true" />
       </header>
 
+      {isBlogRoute ? (
+        <main className="blog-route" id="main-content" key={routeKey}>
+          {route.name === "post" ? <BlogPost slug={route.slug} /> : <BlogIndex />}
+        </main>
+      ) : (
       <div className="page-shell">
         <aside className="profile-sidebar" aria-label="Profile">
           <SidebarProfile />
@@ -181,6 +212,7 @@ function App() {
           })}
         </main>
       </div>
+      )}
 
       <footer className="site-footer">
         <div className="section footer-inner">
@@ -664,25 +696,6 @@ function getVenueFamily(paper) {
   return "Conference";
 }
 
-function renderRichText(content) {
-  if (!Array.isArray(content)) return content;
-
-  return content.map((part, index) => {
-    if (typeof part === "string") return part;
-    const body = part.strong ? <strong>{part.text}</strong> : part.text;
-
-    if (part.href) {
-      return (
-        <a key={`${part.href}-${index}`} href={part.href} target="_blank" rel="noreferrer">
-          {body}
-        </a>
-      );
-    }
-
-    return <span key={`${part.text}-${index}`}>{body}</span>;
-  });
-}
-
 function useGithubRepoStats(collections) {
   const repos = useMemo(() => {
     const found = new Set();
@@ -961,7 +974,64 @@ function useScrollTracking(sectionIds, progressRef) {
   return activeSection;
 }
 
-function useRevealOnScroll() {
+// Hash routing: "#/blog" and "#/blog/<slug>" are pages, every other hash is a
+// section anchor on the home page. No router dependency, and it survives the
+// static GitHub Pages hosting without a redirect shim.
+function useHashRoute() {
+  const [route, setRoute] = useState(() => parseRoute(getHash()));
+
+  useEffect(() => {
+    const handleHashChange = () => setRoute(parseRoute(getHash()));
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  return route;
+}
+
+function getHash() {
+  return typeof window === "undefined" ? "" : window.location.hash;
+}
+
+function parseRoute(hash) {
+  const value = String(hash ?? "").replace(/^#/, "");
+  if (!value.startsWith("/")) return { name: "home", anchor: value };
+
+  const [head, ...rest] = value.split("/").filter(Boolean);
+  if (head === "blog") {
+    return rest.length ? { name: "post", slug: decodeURIComponent(rest[0]) } : { name: "blog" };
+  }
+
+  return { name: "home", anchor: "" };
+}
+
+// A route change starts at the top; an anchor coming back from a page has to
+// wait for the home sections to mount before it can be scrolled to.
+function useRouteScroll(route) {
+  const previousRoute = useRef(null);
+
+  useEffect(() => {
+    const previous = previousRoute.current;
+    previousRoute.current = route;
+    if (!previous) return;
+
+    if (route.name === "home" && route.anchor) {
+      const frame = window.requestAnimationFrame(() => {
+        const element = document.getElementById(route.anchor);
+        if (element) window.scrollTo({ top: element.getBoundingClientRect().top + window.scrollY - 86 });
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    if (route.name !== previous.name || route.slug !== previous.slug) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    return undefined;
+  }, [route]);
+}
+
+function useRevealOnScroll(routeKey) {
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll(".reveal"));
     if (!nodes.length) return undefined;
@@ -984,7 +1054,7 @@ function useRevealOnScroll() {
 
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
-  }, []);
+  }, [routeKey]);
 }
 
 function runAfterInitialLoad(callback) {
@@ -1026,10 +1096,6 @@ function splitServiceYears(value) {
   const match = value.match(/^(.+?)\s((?:\d{4}(?:,\s*)?)+)$/);
   if (!match) return { title: value, year: "" };
   return { title: match[1], year: match[2].replace(/,\s*/g, " / ") };
-}
-
-function slugify(value) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
 function formatNumber(value) {

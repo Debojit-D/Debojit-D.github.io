@@ -8,4 +8,5 @@ export { education } from "./education.js";
 export { experience } from "./experience.js";
 export { awards } from "./awards.js";
 export { services } from "./services.js";
+export { blogCollections, blogMeta, posts as blogPosts } from "./blog.js";
 export { publicationGroups, sections, siteMeta } from "./site.js";

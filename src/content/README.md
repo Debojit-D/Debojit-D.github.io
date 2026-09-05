@@ -45,7 +45,9 @@ The `sections` array controls page order and navigation from one place:
 | `note` | No | Small note beside the section heading. |
 | `enabled` | No | Set to `false` to hide the section and its nav item. |
 
-Supported IDs are `about`, `metrics`, `news`, `publications`, `teaching`, `talks`, `education`, `experience`, `awards`, `service`, and `projects`. An unknown ID has no renderer and is skipped.
+Supported IDs are `about`, `metrics`, `news`, `publications`, `teaching`, `talks`, `education`, `experience`, `awards`, `service`, `projects`, and `writing`. An unknown ID has no renderer and is skipped.
+
+`writing` shows the three most recent blog entries with a link to the full writing page. Its nav item is `false` because the header's Blog pill already links there; the pill is always present and is not controlled by this array.
 
 ### `publicationGroups`
 
@@ -322,6 +324,64 @@ Each service group has a category and an array of items:
 | `items` | Yes | Service chips shown under the heading. |
 
 Trailing years are split from the service name and displayed as `2025 / 2026`. Built-in category icons include `Conference Reviewer`, `Journal Reviewer`, `Program Committee`, `Area Chair`, `Organizer`, and `Mentor`; other categories use the default icon.
+
+## `blog.js`
+
+`blog.js` powers the dedicated writing page at `#/blog` and the `writing` section on the home page. The blog is hash-routed, so `#/blog` is the index and `#/blog/<slug>` is a single entry — both work on GitHub Pages with no redirect setup.
+
+### `blogMeta` and `blogCollections`
+
+```js
+export const blogMeta = { title: "Writing", kicker: "Notes, essays, and lab logs", intro: "…" };
+
+export const blogCollections = [
+  { name: "Essays", note: "Longer arguments about where manipulation research is going." }
+];
+```
+
+`blogCollections` is the display order of the collection rail, exactly like `publicationGroups`. A collection used by a post but missing from this array is appended alphabetically; the `note` field is reference for you and is not rendered.
+
+### Post objects
+
+| Field | Required | What it controls |
+| --- | --- | --- |
+| `slug` | Yes | URL segment, `#/blog/<slug>`. Keep it unique and stable — changing it breaks shared links. |
+| `title` | Yes | Entry title everywhere it appears. |
+| `date` | Yes | `YYYY-MM-DD`. Drives sort order, the `YYYY.MM` label, and archive grouping. |
+| `collection` | Yes | Collection filter and the "filed under" line. Matching is case-sensitive. |
+| `summary` | Yes | Shown on the index, the archive hover row, and under the entry title. |
+| `tags` | No | Tag filter chips. The index shows the first three. |
+| `pinned` | No | `true` lifts the entry into the large pinned card at the top. Use it on one post. |
+| `draft` | No | `true` hides the entry from the site entirely. |
+| `body` | Yes | Array of content blocks, described below. |
+
+Reading time is computed from the body, so there is no field for it.
+
+### Body blocks
+
+```js
+body: [
+  { type: "p", text: "A paragraph. The first one gets the drop cap." },
+  { type: "h2", text: "A section heading" },          // also becomes a contents entry
+  { type: "h3", text: "A sub-heading" },
+  { type: "quote", text: "A pull quote.", cite: "Optional attribution" },
+  { type: "list", items: ["First", "Second"] },        // add `ordered: true` for 1. 2. 3.
+  { type: "code", lang: "python", code: "x = 1\ny = 2" },
+  { type: "note", text: "An aside in a bordered callout." },
+  { type: "image", src: "images/figure.png", alt: "…", caption: "Optional caption" },
+  { type: "divider" }
+]
+```
+
+An unknown `type` renders as a paragraph. Only `h2` blocks appear in the contents rail, so use them for the structure a reader should see. `text` and list `items` accept the same rich-text arrays as `profile.about`, and a rich-text `href` starting with `#` stays in the same tab — that is how you link one entry to another (`#/blog/other-slug`).
+
+Post images follow the publication image rules, except that no WebP alternate is generated; point `src` at a file in `public/images/`.
+
+### Adding an entry
+
+1. Add an object to `posts` in `blog.js` — order in the array does not matter, `date` decides.
+2. Set `collection` to an existing name, or add a new one to `blogCollections` first.
+3. Run `npm run build`, then check `#/blog` and the entry itself.
 
 ## `index.js`
 
