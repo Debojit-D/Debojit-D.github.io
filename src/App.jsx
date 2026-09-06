@@ -6,6 +6,7 @@ import {
   awards,
   education,
   experience,
+  featuredTalks,
   news,
   profile,
   projects,
@@ -17,7 +18,7 @@ import {
   talks,
   teaching
 } from "./content/index.js";
-import { getActionIcon, newsShapeMap, profileIconMap } from "./icons.js";
+import { getActionIcon, profileIconMap } from "./icons.js";
 
 const chartColors = ["#111111", "#3d3d3d", "#666666", "#8c8c8c", "#b0b0b0", "#cfcfcf", "#e4e4e4"];
 const githubStatsCacheTtl = 1000 * 60 * 5;
@@ -59,18 +60,6 @@ function App() {
       </div>
     ),
     metrics: <MetricsDashboard stats={stats} />,
-    news: (
-      <div className="news-list">
-        {news.map((item) => (
-          <a className="news-row" href={item.href} key={`${item.date}-${item.text}`} target="_blank" rel="noreferrer">
-            <time>{item.date}</time>
-            <span className="news-marker" data-shape={newsShapeMap[item.icon] ?? "square"} aria-hidden="true" />
-            <span className="news-text">{item.text}</span>
-            <i className="news-external fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />
-          </a>
-        ))}
-      </div>
-    ),
     publications: groups.map((group) => (
       <PublicationGroup
         key={group}
@@ -81,7 +70,7 @@ function App() {
     )),
     projects: <ProjectList items={projects} githubStats={githubStats} />,
     teaching: <Timeline items={teaching} />,
-    talks: <Timeline items={talks} />,
+    talks: <TalksSection featured={featuredTalks} items={talks} />,
     education: <Timeline items={education} />,
     experience: <Timeline items={experience} />,
     awards: <HonorsList items={awards} />,
@@ -670,6 +659,59 @@ function Timeline({ items }) {
         </div>
       ))}
     </div>
+  );
+}
+
+function TalksSection({ featured, items }) {
+  return (
+    <div className="talks-section">
+      {featured?.length ? (
+        <div className="talk-card-grid">
+          {featured.map((talk) => (
+            <TalkCard key={talk.href} talk={talk} />
+          ))}
+        </div>
+      ) : null}
+      {items?.length ? <Timeline items={items} /> : null}
+    </div>
+  );
+}
+
+function TalkCard({ talk }) {
+  return (
+    <article className="talk-card">
+      <a
+        className="talk-card-media"
+        href={talk.href}
+        target="_blank"
+        rel="noreferrer"
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        <img src={talk.image} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <span className="talk-card-play" aria-hidden="true">
+          <i className="fa-solid fa-play" />
+        </span>
+      </a>
+      <div className="talk-card-copy">
+        <p className="talk-card-meta">
+          <span>{talk.event}</span>
+          <time>{talk.year}</time>
+        </p>
+        <h3>{talk.title}</h3>
+        {talk.context ? <p className="talk-card-context">{talk.context}</p> : null}
+        <a
+          className="talk-card-watch"
+          href={talk.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Watch talk: ${talk.title}`}
+        >
+          <i className="fa-solid fa-play" aria-hidden="true" />
+          <span>Watch Talk</span>
+        </a>
+      </div>
+    </article>
   );
 }
 

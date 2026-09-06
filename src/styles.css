@@ -964,91 +964,6 @@ a:focus-visible {
   color: var(--ink);
 }
 
-/* ---------- news ---------- */
-
-.news-list {
-  max-height: 300px;
-  overflow: auto;
-  scrollbar-width: thin;
-  border-top: 1px solid var(--border-soft);
-}
-
-.news-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: 68px 16px minmax(0, 1fr) 14px;
-  gap: 14px;
-  align-items: center;
-  padding: 13px 8px;
-  border-bottom: 1px solid var(--border-soft);
-  color: var(--body-copy);
-  transition: background 240ms ease, padding-left 240ms cubic-bezier(0.3, 0.8, 0.3, 1);
-}
-
-.news-row:hover {
-  background: var(--accent-wash);
-  color: var(--ink);
-  padding-left: 14px;
-}
-
-.news-row time {
-  color: var(--subtle);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.01em;
-  transition: color 240ms ease;
-}
-
-.news-row:hover time {
-  color: var(--ink);
-}
-
-.news-marker {
-  display: inline-grid;
-  width: 8px;
-  height: 8px;
-  place-items: center;
-  border: 1px solid var(--subtle);
-  transition: transform 320ms cubic-bezier(0.3, 0.8, 0.3, 1), background 240ms ease, border-color 240ms ease;
-}
-
-.news-marker[data-shape="round"] {
-  border-radius: 50%;
-}
-
-.news-marker[data-shape="diamond"] {
-  transform: rotate(45deg);
-}
-
-.news-row:hover .news-marker {
-  background: var(--accent);
-  border-color: var(--accent);
-  transform: rotate(135deg);
-}
-
-.news-row:hover .news-marker[data-shape="round"] {
-  transform: scale(1.2);
-}
-
-.news-text {
-  line-height: 1.5;
-  font-size: 0.88rem;
-}
-
-.news-external {
-  color: var(--subtle);
-  font-size: 0.7rem;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 240ms ease, transform 240ms cubic-bezier(0.3, 0.8, 0.3, 1);
-}
-
-.news-row:hover .news-external {
-  color: var(--ink);
-  opacity: 1;
-  transform: translateX(0);
-}
-
 /* ---------- publications ---------- */
 
 .publication-group {
@@ -1374,6 +1289,180 @@ a:focus-visible {
 .project-tags span::before {
   content: "/ ";
   color: var(--border-strong);
+}
+
+/* ---------- talks ---------- */
+
+.talks-section {
+  display: grid;
+  gap: 30px;
+}
+
+.talk-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.talk-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: border-color 280ms ease, transform 280ms cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+
+.talk-card::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 340ms cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+
+.talk-card:hover,
+.talk-card:focus-within {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.talk-card:hover::before,
+.talk-card:focus-within::before {
+  transform: scaleY(1);
+}
+
+.talk-card-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 280ms ease;
+}
+
+.talk-card:hover .talk-card-media {
+  border-color: var(--border);
+}
+
+.talk-card-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: var(--media-filter);
+  transition: transform 480ms cubic-bezier(0.3, 0.8, 0.3, 1), filter 420ms ease;
+}
+
+.talk-card:hover .talk-card-media img,
+.talk-card:focus-within .talk-card-media img {
+  transform: scale(1.03);
+  filter: none;
+}
+
+.talk-card-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.34);
+  color: #ffffff;
+  font-size: 0.66rem;
+  transition: background 280ms ease, border-color 280ms ease;
+}
+
+.talk-card:hover .talk-card-play,
+.talk-card:focus-within .talk-card-play {
+  border-color: #ffffff;
+  background: rgba(0, 0, 0, 0.52);
+}
+
+.talk-card-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.talk-card-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.talk-card-meta span {
+  color: var(--ink);
+}
+
+.talk-card-meta time {
+  color: var(--subtle);
+}
+
+.talk-card-copy h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1.12rem;
+  line-height: 1.34;
+  font-weight: 460;
+}
+
+.talk-card-context {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.talk-card-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--control-bg);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.02em;
+  padding: 7px 12px;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 220ms cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+
+.talk-card-watch:hover,
+.talk-card-watch:focus-visible {
+  border-color: var(--invert-bg);
+  background: var(--invert-bg);
+  color: var(--invert-ink);
+  transform: translateY(-1px);
+}
+
+.talk-card-watch i {
+  min-width: 1em;
+  font-size: 0.64rem;
+  text-align: center;
 }
 
 /* ---------- projects ---------- */
@@ -1950,6 +2039,10 @@ a.timeline-place:hover {
     grid-template-columns: 1fr;
   }
 
+  .talk-card-grid {
+    grid-template-columns: 1fr;
+  }
+
   .metric-card-grid,
   .chart-grid {
     grid-template-columns: 1fr;
@@ -2010,15 +2103,6 @@ a.timeline-place:hover {
     grid-auto-columns: min(84vw, 320px);
   }
 
-  .news-row {
-    grid-template-columns: 16px minmax(0, 1fr) 14px;
-    gap: 10px;
-  }
-
-  .news-row time {
-    grid-column: 1 / -1;
-  }
-
   .timeline-item {
     grid-template-columns: 1fr;
     gap: 6px;
@@ -2063,10 +2147,13 @@ a.timeline-place:hover {
   .paper-figure,
   .paper-figure img,
   .sidebar-avatar,
-  .news-row,
   .timeline-item,
   .honor-row,
   .compact-paper-row,
+  .talk-card,
+  .talk-card-media,
+  .talk-card-media img,
+  .talk-card-watch,
   .brand-mark,
   .action-links a,
   .profile-links a {
@@ -2082,13 +2169,17 @@ a.timeline-place:hover {
   .featured-paper:hover .paper-figure img,
   .featured-paper:focus-within .paper-figure img,
   .sidebar-avatar-frame:hover .sidebar-avatar,
+  .talk-card:hover,
+  .talk-card:focus-within,
+  .talk-card:hover .talk-card-media img,
+  .talk-card:focus-within .talk-card-media img,
+  .talk-card-watch:hover,
   .brand:hover .brand-mark,
   .action-links a:hover,
   .profile-links a:hover {
     transform: none;
   }
 
-  .news-row:hover,
   .timeline-item:hover,
   .honor-row:hover,
   .compact-paper-row:hover {

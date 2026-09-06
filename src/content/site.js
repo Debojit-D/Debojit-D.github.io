@@ -12,12 +12,12 @@ export const sections = [
   { id: "about", title: "About", nav: "About" },
   // Metrics section disabled per request
   // { id: "metrics", title: "Metrics", nav: "Metrics", note: "Publication record snapshot." },
-  { id: "news", title: "News", nav: "News" },
-  { id: "publications", title: "Publications", nav: "Publications" },
-  { id: "teaching", title: "Teaching", nav: "Teaching", enabled: false },
-  { id: "talks", title: "Talks", nav: "Talks", enabled: false },
-  { id: "education", title: "Education", nav: "Education" },
+  // News lives only in the sidebar's Recent News block.
+  { id: "publications", title: "Selected Research", nav: "Selected Research" },
+  { id: "talks", title: "Talks", nav: "Talks", note: "Invited talks and speaking." },
   { id: "experience", title: "Experience", nav: "Experience" },
+  { id: "education", title: "Education", nav: "Education" },
+  { id: "teaching", title: "Teaching", nav: "Teaching", enabled: false },
   { id: "awards", title: "Awards", nav: "Awards", enabled: false },
   { id: "service", title: "Academic Service", nav: "Service", enabled: false },
   { id: "projects", title: "Projects", nav: "Projects" },
