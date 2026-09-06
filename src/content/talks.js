@@ -8,7 +8,7 @@ export const featuredTalks = [
     title: "Why Robots Today Can Do Backflips But Still Can't Make a Vada Pav?",
     context: "On the gap between dynamic locomotion and the everyday dexterous manipulation robots still cannot do.",
     image: rosconThumbnail,
-    href: "https://youtu.be/n0tbw96OAXM"
+    href: "https://youtu.be/ZYEsVg4pXdw"
   },
   {
     event: "TEDxDPS Siliguri Youth",
@@ -16,11 +16,19 @@ export const featuredTalks = [
     title: "From Curiosity to Real Impact: Building a Future with Robotics, AI, Engineering, and Purpose",
     context: "Alumni speaker talk on turning early curiosity into research impact in robotics and AI.",
     image: tedxThumbnail,
-    href: "https://youtu.be/ZYEsVg4pXdw"
+    href: "https://youtu.be/n0tbw96OAXM"
   }
 ];
 
 export const talks = [
+  {
+    period: "2026.06",
+    title: "Not Just Where To Move, But How To Coordinate",
+    place: "Robotics Café — Student Talks",
+    detail: "Invited talk on dynamical-systems coordination for multi-arm robotic manipulation.",
+    type: "Research Talk",
+    watchHref: "https://youtu.be/RMxiNDzZmRE"
+  },
   {
     period: "2026.01",
     title: "Hands-On Inverse Kinematics with MuJoCo",

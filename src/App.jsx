@@ -672,6 +672,18 @@ function Timeline({ items }) {
               <span className="timeline-place">{item.place}</span>
             )}
             {item.detail ? <p>{renderRichText(item.detail)}</p> : null}
+            {item.watchHref ? (
+              <a
+                className="timeline-watch"
+                href={item.watchHref}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Watch: ${item.title}`}
+              >
+                <i className="fa-solid fa-play" aria-hidden="true" />
+                <span>Watch ↗</span>
+              </a>
+            ) : null}
           </div>
           <time>{item.period}</time>
         </div>

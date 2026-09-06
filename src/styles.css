@@ -1633,6 +1633,27 @@ a.timeline-place:hover {
   background-size: 100% 1px;
 }
 
+.timeline-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+  transition: color 200ms ease;
+}
+
+.timeline-watch:hover,
+.timeline-watch:focus-visible {
+  color: var(--ink);
+}
+
+.timeline-watch i {
+  font-size: 0.6rem;
+}
+
 .honor-list,
 .service-groups {
   display: grid;
