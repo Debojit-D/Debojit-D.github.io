@@ -45,7 +45,8 @@ export function getActionIcon(link) {
   if (label.includes("report") || label.includes("preprint")) return "fa-solid fa-file-lines";
   if (label.includes("code") || label.includes("github") || label.includes("repo")) return "fa-solid fa-code";
   if (label.includes("dataset") || label.includes("data") || label.includes("benchmark")) return "fa-solid fa-database";
-  if (label.includes("demo") || label.includes("site") || label.includes("project")) return "fa-solid fa-play";
+  if (label.includes("site") || label.includes("project")) return "fa-solid fa-globe";
+  if (label.includes("demo")) return "fa-solid fa-play";
   if (label.includes("video") || label.includes("recording")) return "fa-solid fa-video";
   if (label.includes("slide") || label.includes("talk")) return "fa-solid fa-chalkboard";
   if (label.includes("poster")) return "fa-solid fa-images";
