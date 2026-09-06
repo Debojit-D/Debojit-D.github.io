@@ -7,7 +7,7 @@ export const profile = {
       status: "B.Tech.–M.Tech. Dual-Degree Student, Mechanical Engineering",
       institution: "IIT Gandhinagar",
       timeline: "Expected June 2027",
-      info: "Currently pursuing IIT Gandhinagar’s five-year B.Tech.–M.Tech. Dual-Degree programme. The programme awards separate B.Tech. and M.Tech. degrees upon completion; expected graduation is June 2027."
+      info: "Initially enrolled in the Bachelor of Technology (B.Tech.) programme in Mechanical Engineering at IIT Gandhinagar, I later opted to continue through the institute’s five-year Bachelor of Technology and Master of Technology (B.Tech.-M.Tech.) Dual-Degree pathway. Separate B.Tech. and M.Tech. degrees are awarded upon completion; expected graduation is June 2027."
     },
     {
       status: "Visiting Foreign Researcher",
