@@ -1,4 +1,4 @@
-import avatarImage from "../pictures/self/IEEEHumanoids-bw.jpg";
+import avatarImage from "../pictures/self/IEEEHumanoids.jpg";
 
 export const profile = {
   name: "Debojit Das",
