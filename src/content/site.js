@@ -17,10 +17,14 @@ export const sections = [
   { id: "talks", title: "Talks", nav: "Talks", note: "Invited talks and speaking." },
   { id: "experience", title: "Experience", nav: "Experience" },
   { id: "education", title: "Education", nav: "Education" },
-  { id: "teaching", title: "Teaching", nav: "Teaching", enabled: false },
   { id: "awards", title: "Awards", nav: "Awards", enabled: false },
-  { id: "service", title: "Academic Service", nav: "Service", enabled: false },
   { id: "projects", title: "Projects", nav: "Projects" },
+  {
+    id: "academic-service",
+    title: "Academic Service & Teaching",
+    nav: "Academic Service & Teaching",
+    note: "Reviewing, workshops, and teaching."
+  },
   // The header's Blog pill is this section's nav entry, so it has none of its own.
   { id: "writing", title: "Writing", nav: false, note: "Latest from the blog." }
 ];

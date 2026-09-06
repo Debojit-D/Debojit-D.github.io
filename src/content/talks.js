@@ -28,12 +28,5 @@ export const talks = [
     detail: "Invited talk on dynamical-systems coordination for multi-arm robotic manipulation.",
     type: "Research Talk",
     watchHref: "https://youtu.be/RMxiNDzZmRE"
-  },
-  {
-    period: "2026.01",
-    title: "Hands-On Inverse Kinematics with MuJoCo",
-    place: "IEEE RAS Student Chapter, PDEU",
-    detail: "Workshop instructor for a hands-on session on inverse kinematics using MuJoCo.",
-    type: "Workshop"
   }
 ];

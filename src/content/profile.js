@@ -34,7 +34,7 @@ export const profile = {
   ],
   links: [
     { label: "Email", href: "mailto:personal@debojit.in", icon: "Email" },
-    { label: "Google Scholar", href: "TODO_ADD_YOUR_SCHOLAR_URL", icon: "Google Scholar" },
+    { label: "Google Scholar", href: "https://scholar.google.com/citations?user=jxemIXEAAAAJ&hl=en", icon: "Google Scholar" },
     { label: "GitHub", href: "https://github.com/Debojit-D", icon: "GitHub" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/debojitdas842/", icon: "LinkedIn" },
     { label: "ORCID", href: "https://orcid.org/0009-0003-7027-0102", icon: "ORCID" },

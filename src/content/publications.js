@@ -23,13 +23,17 @@ export const publications = [
   },
   {
     title: "Task-Specific Manipulability Metrics for Redundancy Optimization in Cooperative Manipulation",
-    venue: "Industrial Robot (revised manuscript submitted)",
+    venue: "Industrial Robot — Accepted, 2026",
     year: "2026",
     type: "Journal",
     group: "Robotics & Control",
     authors: "D. Das, S. Barat, H. J. Palanthandalam-Madapusi",
     tags: ["redundancy optimization", "manipulability"],
-    links: [{ label: "Project Page", href: "https://debojit-d.github.io/Bimanual-Redundancy-Optimization/" }]
+    links: [
+      { label: "DOI", href: "https://doi.org/10.1108/IR-05-2026-0221" },
+      { label: "Project Page", href: "https://debojit-d.github.io/Bimanual-Redundancy-Optimization/" },
+      { label: "Code", href: "https://github.com/Debojit-D/Bimanual-Redundancy-Optimization" }
+    ]
   },
   {
     title: "Grasp Dexterity Index: Manipulability of Objects Grasped by Multi-fingered Robotic Hands",

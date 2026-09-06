@@ -45,7 +45,9 @@ The `sections` array controls page order and navigation from one place:
 | `note` | No | Small note beside the section heading. |
 | `enabled` | No | Set to `false` to hide the section and its nav item. |
 
-Supported IDs are `about`, `metrics`, `news`, `publications`, `teaching`, `talks`, `education`, `experience`, `awards`, `service`, `projects`, and `writing`. An unknown ID has no renderer and is skipped.
+Supported IDs are `about`, `metrics`, `news`, `publications`, `talks`, `education`, `experience`, `awards`, `projects`, `academic-service`, and `writing`. An unknown ID has no renderer and is skipped.
+
+`academic-service` renders one combined "Academic Service & Teaching" block, in this fixed internal order: `academicService` (from `academicService.js`), then `workshops` (from `academicService.js`), then `teaching` (from `teaching.js`). There is no separate standalone `teaching` or `service` section id — both live inside this combined block.
 
 `writing` shows the three most recent blog entries with a link to the full writing page. Its nav item is `false` because the header's Blog pill already links there; the pill is always present and is not controlled by this array.
 
@@ -279,9 +281,9 @@ Unknown status values still render, using the default icon.
 
 Projects render in array order on a horizontal rail. Three cards fit in the desktop viewport; additional cards remain available by horizontal scrolling. Mobile uses wider, touch-scrollable cards.
 
-## `teaching.js`, `talks.js`, `education.js`, and `experience.js`
+## `teaching.js`, `talks.js`, `education.js`, `experience.js`, and `academicService.js`'s `workshops`
 
-These four files use the same timeline object:
+These files use the same timeline object:
 
 | Field | Required | What it controls |
 | --- | --- | --- |
@@ -291,8 +293,23 @@ These four files use the same timeline object:
 | `href` | No | Makes `place` a link. |
 | `detail` | No | Plain string or rich-text detail below the title. |
 | `type` | No | Reserved metadata; the current timeline layout does not display it. |
+| `watchHref` | No | Adds a "Watch Talk" button under `detail` (used by `talks.js`'s compact list). |
 
 Entries render in array order. Put the newest item first if you want reverse chronological display.
+
+## `academicService.js`
+
+Powers the "Academic Service" and "Workshops" parts of the combined `academic-service` section (see `sections` above); `teaching.js` supplies the third part.
+
+`academicService` is a flat, easily extensible list of reviewing roles:
+
+```js
+export const academicService = [
+  { role: "Reviewer", venue: "IEEE Transactions on Automation Science and Engineering (T-ASE)" }
+];
+```
+
+Add one object per verified reviewing venue; do not invent unverified ones. `workshops` uses the same timeline object documented above.
 
 ## `awards.js`
 

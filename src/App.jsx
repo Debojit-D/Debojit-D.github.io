@@ -4,6 +4,7 @@ import { BlogIndex, BlogPost, WritingHighlights, getPostBySlug } from "./Blog.js
 import { TravelPage } from "./Travel.jsx";
 import { renderRichText, slugify } from "./richText.jsx";
 import {
+  academicService,
   awards,
   education,
   experience,
@@ -13,11 +14,11 @@ import {
   projects,
   publicationGroups,
   publications,
-  services,
   sections,
   siteMeta,
   talks,
-  teaching
+  teaching,
+  workshops
 } from "./content/index.js";
 import { getActionIcon, profileIconMap } from "./icons.js";
 
@@ -72,12 +73,13 @@ function App() {
       />
     )),
     projects: <ProjectList items={projects} githubStats={githubStats} />,
-    teaching: <Timeline items={teaching} />,
     talks: <TalksSection featured={featuredTalks} items={talks} />,
     education: <Timeline items={education} />,
     experience: <Timeline items={experience} />,
     awards: <HonorsList items={awards} />,
-    service: <ServiceList items={services} />,
+    "academic-service": (
+      <AcademicServiceSection academicService={academicService} workshops={workshops} teaching={teaching} />
+    ),
     writing: <WritingHighlights />
   };
 
@@ -784,6 +786,45 @@ function ServiceList({ items }) {
           </div>
         </section>
       ))}
+    </div>
+  );
+}
+
+function AcademicServiceSection({ academicService, workshops, teaching }) {
+  return (
+    <div className="service-groups">
+      {academicService?.length ? (
+        <section className="service-group">
+          <h3>
+            <span>Academic Service</span>
+          </h3>
+          <div className="service-chip-grid">
+            {academicService.map((entry) => (
+              <span className="service-chip" key={`${entry.role}-${entry.venue}`}>
+                <span>
+                  {entry.role} — {entry.venue}
+                </span>
+              </span>
+            ))}
+          </div>
+        </section>
+      ) : null}
+      {workshops?.length ? (
+        <section className="service-group">
+          <h3>
+            <span>Workshops</span>
+          </h3>
+          <Timeline items={workshops} />
+        </section>
+      ) : null}
+      {teaching?.length ? (
+        <section className="service-group">
+          <h3>
+            <span>Teaching</span>
+          </h3>
+          <Timeline items={teaching} />
+        </section>
+      ) : null}
     </div>
   );
 }
