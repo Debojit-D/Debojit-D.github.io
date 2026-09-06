@@ -640,7 +640,9 @@ a:focus-visible {
   background: transparent;
   color: var(--subtle);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  font-style: italic;
   line-height: 1;
   cursor: pointer;
   transition: color 200ms ease, border-color 200ms ease;

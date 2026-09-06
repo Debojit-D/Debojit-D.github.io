@@ -371,7 +371,7 @@ function InfoPopover({ id, label, text }) {
         aria-label={label}
         onClick={() => setOpen((value) => !value)}
       >
-        <span aria-hidden="true">ⓘ</span>
+        <span aria-hidden="true">i</span>
       </button>
       <span className={`info-bubble${open ? " is-open" : ""}`} role="tooltip" id={id}>
         {text}
