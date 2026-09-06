@@ -263,7 +263,7 @@ function SidebarProfile() {
           <div className="sidebar-affiliations">
             {profile.affiliations.map((affiliation, index) => (
               <div className="sidebar-affiliation" key={affiliation.status ?? index}>
-                <p className="sidebar-affiliation-status">
+                <div className="sidebar-affiliation-status">
                   <span>{affiliation.status}</span>
                   {affiliation.info ? (
                     <InfoPopover
@@ -272,11 +272,11 @@ function SidebarProfile() {
                       text={affiliation.info}
                     />
                   ) : null}
-                </p>
+                </div>
                 {affiliation.institution || affiliation.timeline ? (
-                  <p className="sidebar-affiliation-institution">
+                  <div className="sidebar-affiliation-institution">
                     {[affiliation.institution, affiliation.timeline].filter(Boolean).join(" · ")}
-                  </p>
+                  </div>
                 ) : null}
               </div>
             ))}
