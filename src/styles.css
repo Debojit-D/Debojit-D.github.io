@@ -908,7 +908,7 @@ a:focus-visible {
 /* ---------- about ---------- */
 
 .intro-copy {
-  max-width: 68ch;
+  max-width: 100%;
   color: var(--body-copy);
   font-size: 1rem;
   line-height: 1.78;
