@@ -5,7 +5,7 @@
 
 export const travelMeta = {
   kicker: "Field Notes",
-  title: "Travel",
+  title: "Travel Diaries",
   intro: "Places, people, and things I stopped long enough to notice."
 };
 

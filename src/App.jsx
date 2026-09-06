@@ -88,7 +88,7 @@ function App() {
     } else if (route.name === "blog") {
       document.title = `Writing — ${siteMeta.brand}`;
     } else if (route.name === "travel") {
-      document.title = `Travel — ${siteMeta.brand}`;
+      document.title = `Travel Diaries — ${siteMeta.brand}`;
     } else {
       document.title = siteMeta.title;
     }
@@ -159,7 +159,7 @@ function App() {
             aria-current={isTravelRoute ? "page" : undefined}
             onClick={() => setMenuOpen(false)}
           >
-            <span>Travel</span>
+            <span>Travel Diaries</span>
             <i className="fa-solid fa-arrow-right" aria-hidden="true" />
           </a>
         </nav>
