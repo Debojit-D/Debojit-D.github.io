@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import GeometricBackground from "./GeometricBackground.jsx";
 import { BlogIndex, BlogPost, WritingHighlights, getPostBySlug } from "./Blog.jsx";
+import { TravelPage } from "./Travel.jsx";
 import { renderRichText, slugify } from "./richText.jsx";
 import {
   awards,
@@ -31,6 +32,8 @@ function App() {
   const [theme, setTheme] = useState(getInitialTheme);
   const route = useHashRoute();
   const isBlogRoute = route.name === "blog" || route.name === "post";
+  const isTravelRoute = route.name === "travel";
+  const isPageRoute = isBlogRoute || isTravelRoute;
   const githubStatsSources = useMemo(() => [publications, projects], []);
   const githubStats = useGithubRepoStats(githubStatsSources);
   const stats = useMemo(() => getPublicationStats(publications), []);
@@ -43,7 +46,7 @@ function App() {
     [visibleSections]
   );
   const homeSectionIds = useMemo(() => navItems.map((item) => item.href.slice(1)), [navItems]);
-  const sectionIds = isBlogRoute ? emptySectionIds : homeSectionIds;
+  const sectionIds = isPageRoute ? emptySectionIds : homeSectionIds;
   const progressRef = useRef(null);
   const activeSection = useScrollTracking(sectionIds, progressRef);
   const routeKey = route.name === "post" ? `post:${route.slug}` : route.name;
@@ -84,6 +87,8 @@ function App() {
       document.title = `${post.title} — ${siteMeta.brand}`;
     } else if (route.name === "blog") {
       document.title = `Writing — ${siteMeta.brand}`;
+    } else if (route.name === "travel") {
+      document.title = `Travel — ${siteMeta.brand}`;
     } else {
       document.title = siteMeta.title;
     }
@@ -126,7 +131,7 @@ function App() {
         </a>
         <nav className={`primary-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
           {navItems.map((item) => {
-            const isActive = !isBlogRoute && activeSection === item.href.slice(1);
+            const isActive = !isPageRoute && activeSection === item.href.slice(1);
             return (
               <a
                 key={item.href}
@@ -146,6 +151,15 @@ function App() {
             onClick={() => setMenuOpen(false)}
           >
             <span>Blog</span>
+            <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+          </a>
+          <a
+            className={`nav-route${isTravelRoute ? " is-active" : ""}`}
+            href="#/travel"
+            aria-current={isTravelRoute ? "page" : undefined}
+            onClick={() => setMenuOpen(false)}
+          >
+            <span>Travel</span>
             <i className="fa-solid fa-arrow-right" aria-hidden="true" />
           </a>
         </nav>
@@ -173,7 +187,11 @@ function App() {
         <span className="scroll-progress" ref={progressRef} aria-hidden="true" />
       </header>
 
-      {isBlogRoute ? (
+      {isTravelRoute ? (
+        <main className="travel-route" id="main-content" key={routeKey}>
+          <TravelPage />
+        </main>
+      ) : isBlogRoute ? (
         <main className="blog-route" id="main-content" key={routeKey}>
           {route.name === "post" ? <BlogPost slug={route.slug} /> : <BlogIndex />}
         </main>
@@ -1108,6 +1126,7 @@ function parseRoute(hash) {
   if (head === "blog") {
     return rest.length ? { name: "post", slug: decodeURIComponent(rest[0]) } : { name: "blog" };
   }
+  if (head === "travel") return { name: "travel" };
 
   return { name: "home", anchor: "" };
 }
