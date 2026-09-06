@@ -681,7 +681,7 @@ function Timeline({ items }) {
                 aria-label={`Watch: ${item.title}`}
               >
                 <i className="fa-solid fa-play" aria-hidden="true" />
-                <span>Watch ↗</span>
+                <span>Watch Talk</span>
               </a>
             ) : null}
           </div>
