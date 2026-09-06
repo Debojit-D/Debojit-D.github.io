@@ -9,7 +9,7 @@ export const publications = [
     summary: "A dynamical-systems bimanual handover controller enabling phase-locked, obstacle-aware, real-time handovers by unifying asynchronous and synchronous motion via coupled translational and quaternion DS laws.",
     tags: ["dynamical systems", "bimanual manipulation", "handover"],
     featured: true,
-    links: [] // TODO: add ICRA proceedings link once indexed, plus project page / video
+    links: [{ label: "Project Page", href: "https://debojit-d.github.io/consensus-handover/" }] // TODO: add ICRA proceedings link once indexed, plus video
   },
   {
     title: "Towards Coordinated Dual-Arm SnapFit Assembly Skill for Delicate Applications",
@@ -29,7 +29,7 @@ export const publications = [
     group: "Robotics & Control",
     authors: "D. Das, S. Barat, H. J. Palanthandalam-Madapusi",
     tags: ["redundancy optimization", "manipulability"],
-    links: []
+    links: [{ label: "Project Page", href: "https://debojit-d.github.io/Bimanual-Redundancy-Optimization/" }]
   },
   {
     title: "Grasp Dexterity Index: Manipulability of Objects Grasped by Multi-fingered Robotic Hands",
