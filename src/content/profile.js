@@ -2,8 +2,18 @@ import avatarImage from "../pictures/self/IEEEHumanoids-bw.jpg";
 
 export const profile = {
   name: "Debojit Das",
-  role: "Dual-Degree Researcher, Robotics",
-  organization: "IIT Gandhinagar",
+  affiliations: [
+    {
+      status: "B.Tech.–M.Tech. Dual-Degree Student, Mechanical Engineering",
+      institution: "IIT Gandhinagar",
+      timeline: "Expected June 2027",
+      info: "Currently pursuing IIT Gandhinagar’s five-year B.Tech.–M.Tech. Dual-Degree programme. The programme awards separate B.Tech. and M.Tech. degrees upon completion; expected graduation is June 2027."
+    },
+    {
+      status: "Visiting Foreign Researcher",
+      institution: "Tohoku University, Japan"
+    }
+  ],
   location: "Sendai, Japan",
   email: "personal@debojit.in",
   avatar: avatarImage,

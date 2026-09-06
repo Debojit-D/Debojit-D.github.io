@@ -597,12 +597,96 @@ a:focus-visible {
   font-weight: 440;
 }
 
-.sidebar-identity span {
-  display: block;
-  margin-top: 12px;
-  color: var(--muted);
+.sidebar-affiliations {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.sidebar-affiliation-status {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+  color: var(--ink);
   font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.sidebar-affiliation-institution {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
   line-height: 1.5;
+}
+
+.info-popover {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.info-trigger:hover,
+.info-trigger:focus-visible,
+.info-trigger.is-open {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.info-trigger:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.info-bubble {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 5;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel-bg);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-style: normal;
+  line-height: 1.55;
+  letter-spacing: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms;
+  pointer-events: none;
+}
+
+.info-trigger:hover + .info-bubble,
+.info-trigger:focus-visible + .info-bubble,
+.info-bubble.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .sidebar-meta {

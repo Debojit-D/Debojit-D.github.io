@@ -236,7 +236,6 @@ function App() {
 
 function SidebarProfile() {
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const organizationText = [profile.role, profile.organization ? `at ${profile.organization}` : ""].filter(Boolean).join(" ");
 
   return (
     <div className="sidebar-card reveal">
@@ -260,7 +259,29 @@ function SidebarProfile() {
       <div className="sidebar-identity">
         <h1>{profile.name}</h1>
         {profile.nativeName ? <p>{profile.nativeName}</p> : null}
-        {organizationText ? <span>{organizationText}</span> : null}
+        {profile.affiliations?.length ? (
+          <div className="sidebar-affiliations">
+            {profile.affiliations.map((affiliation, index) => (
+              <div className="sidebar-affiliation" key={affiliation.status ?? index}>
+                <p className="sidebar-affiliation-status">
+                  <span>{affiliation.status}</span>
+                  {affiliation.info ? (
+                    <InfoPopover
+                      id={`affiliation-info-${index}`}
+                      label={`More information about: ${affiliation.status}`}
+                      text={affiliation.info}
+                    />
+                  ) : null}
+                </p>
+                {affiliation.institution || affiliation.timeline ? (
+                  <p className="sidebar-affiliation-institution">
+                    {[affiliation.institution, affiliation.timeline].filter(Boolean).join(" · ")}
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
       <div className="sidebar-meta">
         {profile.location ? (
@@ -312,6 +333,50 @@ function SidebarProfile() {
         ) : null}
       </div>
     </div>
+  );
+}
+
+function InfoPopover({ id, label, text }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    function handlePointerDown(event) {
+      if (rootRef.current && !rootRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <span className="info-popover" ref={rootRef}>
+      <button
+        type="button"
+        className={`info-trigger${open ? " is-open" : ""}`}
+        aria-expanded={open}
+        aria-describedby={id}
+        aria-label={label}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span aria-hidden="true">ⓘ</span>
+      </button>
+      <span className={`info-bubble${open ? " is-open" : ""}`} role="tooltip" id={id}>
+        {text}
+      </span>
+    </span>
   );
 }
 
