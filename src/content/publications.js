@@ -51,7 +51,7 @@ export const publications = [
     featured: true,
     featuredLevel: "secondary",
     video: "/videos/icra2027-teaser.mp4",
-    links: []
+    links: [{ label: "Video", href: "https://youtu.be/uAjR8Pz1hr8" }]
   },
   {
     title: "Grasp Dexterity Index: Manipulability of Objects Grasped by Multi-fingered Robotic Hands",
