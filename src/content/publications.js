@@ -33,6 +33,7 @@ export const publications = [
     tags: ["redundancy optimization", "manipulability"],
     featured: true,
     featuredLevel: "secondary",
+    video: "/videos/redundancy-optimization-teaser.mp4",
     links: [
       { label: "DOI", href: "https://doi.org/10.1108/IR-05-2026-0221" },
       { label: "Project Page", href: "https://debojit-d.github.io/Bimanual-Redundancy-Optimization/" },
