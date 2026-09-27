@@ -522,6 +522,21 @@ function FeaturedPaper({ paper, githubStats }) {
 }
 
 function PublicationVisual({ paper }) {
+  if (paper.video) {
+    return (
+      <div className="paper-figure">
+        <video
+          src={paper.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+      </div>
+    );
+  }
+
   if (!paper.image) {
     return (
       <div className="paper-figure paper-figure-fallback">

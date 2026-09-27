@@ -1075,6 +1075,21 @@ a:focus-visible {
   filter: none;
 }
 
+.paper-figure video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: var(--media-filter);
+  transition: transform 480ms cubic-bezier(0.3, 0.8, 0.3, 1), filter 420ms ease;
+}
+
+.featured-paper:hover .paper-figure video,
+.featured-paper:focus-within .paper-figure video {
+  transform: scale(1.03);
+  filter: none;
+}
+
 .paper-figure-fallback {
   display: grid;
   place-items: center;

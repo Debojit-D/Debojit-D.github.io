@@ -9,7 +9,8 @@ export const publications = [
     summary: "A dynamical-systems bimanual handover controller enabling phase-locked, obstacle-aware, real-time handovers by unifying asynchronous and synchronous motion via coupled translational and quaternion DS laws.",
     tags: ["dynamical systems", "bimanual manipulation", "handover"],
     featured: true,
-    links: [{ label: "Project Page", href: "https://debojit-d.github.io/consensus-handover/" }] // TODO: add ICRA proceedings link once indexed, plus video
+    video: "/videos/consensus-ds.mp4",
+    links: [{ label: "Project Page", href: "https://debojit-d.github.io/consensus-handover/" }] // TODO: add ICRA proceedings link once indexed
   },
   {
     title: "Towards Coordinated Dual-Arm SnapFit Assembly Skill for Delicate Applications",
