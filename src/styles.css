@@ -1070,7 +1070,7 @@ a:focus-visible {
 
 @media (min-width: 961px) {
   .featured-paper--secondary {
-    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    grid-template-columns: minmax(200px, 45%) minmax(0, 1fr);
     grid-template-areas:
       "media actions"
       "copy copy";
@@ -1079,7 +1079,7 @@ a:focus-visible {
   .featured-paper--secondary .paper-figure {
     grid-area: media;
     width: 100%;
-    max-width: 220px;
+    max-width: 360px;
   }
 
   .featured-paper--secondary .featured-paper-actions-slot {
