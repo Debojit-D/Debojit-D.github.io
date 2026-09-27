@@ -514,18 +514,24 @@ function PublicationGroup({ title, papers, githubStats }) {
 }
 
 function FeaturedPaper({ paper, githubStats, variant = "hero" }) {
-  const className = variant === "secondary" ? "featured-paper featured-paper--secondary" : "featured-paper";
+  const isSecondary = variant === "secondary";
+  const className = isSecondary ? "featured-paper featured-paper--secondary" : "featured-paper";
 
   return (
     <article className={className}>
       <PublicationVisual paper={paper} />
+      {isSecondary ? (
+        <div className="featured-paper-actions-slot">
+          <ActionLinks links={paper.links} githubStats={githubStats} />
+        </div>
+      ) : null}
       <div className="featured-paper-copy">
         <PublicationMeta paper={paper} />
         <h4>{paper.title}</h4>
         <p className="authors">{highlightAuthors(paper.authors)}</p>
         {paper.summary ? <p>{paper.summary}</p> : null}
         {paper.tags?.length ? <TagList items={paper.tags} className="paper-tags" /> : null}
-        <ActionLinks links={paper.links} githubStats={githubStats} />
+        {isSecondary ? null : <ActionLinks links={paper.links} githubStats={githubStats} />}
       </div>
     </article>
   );

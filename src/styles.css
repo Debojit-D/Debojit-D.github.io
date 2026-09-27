@@ -1011,13 +1011,6 @@ a:focus-visible {
   margin-bottom: 22px;
 }
 
-@media (min-width: 961px) {
-  .featured-paper--secondary .paper-figure {
-    width: 100%;
-    max-width: 300px;
-  }
-}
-
 .featured-paper {
   position: relative;
   display: grid;
@@ -1059,8 +1052,52 @@ a:focus-visible {
   grid-template-columns: 1fr;
 }
 
+.featured-paper--secondary .paper-figure {
+  order: 1;
+}
+
+.featured-paper--secondary .featured-paper-copy {
+  order: 2;
+}
+
+.featured-paper--secondary .featured-paper-actions-slot {
+  order: 3;
+}
+
 .featured-paper--secondary .featured-paper-copy h4 {
   font-size: 1.05rem;
+}
+
+@media (min-width: 961px) {
+  .featured-paper--secondary {
+    grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+    grid-template-areas:
+      "media actions"
+      "copy copy";
+  }
+
+  .featured-paper--secondary .paper-figure {
+    grid-area: media;
+    width: 100%;
+    max-width: 150px;
+  }
+
+  .featured-paper--secondary .featured-paper-actions-slot {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .featured-paper--secondary .featured-paper-actions-slot .action-links {
+    margin-top: 0;
+    justify-content: flex-end;
+  }
+
+  .featured-paper--secondary .featured-paper-copy {
+    grid-area: copy;
+  }
 }
 
 .paper-figure {
@@ -1269,7 +1306,7 @@ a:focus-visible {
 
 .compact-paper-row {
   display: grid;
-  grid-template-columns: 96px 150px minmax(0, 1fr) max-content;
+  grid-template-columns: 132px 150px minmax(0, 1fr) max-content;
   gap: 20px;
   align-items: start;
   border-bottom: 1px solid var(--border-soft);
