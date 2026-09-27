@@ -1142,12 +1142,14 @@ a:focus-visible {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 480ms cubic-bezier(0.3, 0.8, 0.3, 1);
+  filter: var(--media-filter);
+  transition: transform 480ms cubic-bezier(0.3, 0.8, 0.3, 1), filter 420ms ease;
 }
 
 .featured-paper:hover .paper-figure video,
 .featured-paper:focus-within .paper-figure video {
   transform: scale(1.03);
+  filter: none;
 }
 
 .paper-figure-fallback {
