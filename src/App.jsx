@@ -531,7 +531,7 @@ function PublicationVisual({ paper }) {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
         />
       </div>
     );
