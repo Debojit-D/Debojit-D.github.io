@@ -529,9 +529,14 @@ function PublicationVisual({ paper }) {
           src={paper.video}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
+          onEnded={(event) => {
+            const video = event.currentTarget;
+            video.currentTime = 0;
+            const playPromise = video.play();
+            if (playPromise) playPromise.catch(() => {});
+          }}
         />
       </div>
     );
