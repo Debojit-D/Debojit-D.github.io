@@ -1,4 +1,10 @@
 import avatarImage from "../pictures/self/IEEEHumanoids.jpg";
+import bioText from "./bio.txt?raw";
+
+const about = bioText
+  .split(/\n\s*\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
 
 export const profile = {
   name: "Debojit Das",
@@ -24,14 +30,7 @@ export const profile = {
     "Tactile Sensing"
   ],
   highlightNames: ["Debojit Das", "D. Das"],
-  about: [
-    "I build dynamical-systems-based control architectures that let bimanual robots coordinate, make and maintain contact, and adapt through touch and high-level reasoning — without giving up the stability guarantees of classical control.",
-    [
-      "I am currently a Visiting Foreign Researcher at the Smart Robots Design Lab, Tohoku University, advised by Prof. Ankit A. Ravankar, and a Student Researcher at the ",
-      { text: "IITGN Robotics Lab", href: "https://debojit-d.github.io/", strong: false },
-      " under Dr. Harish Palanthandalam-Madapusi."
-    ]
-  ],
+  about,
   links: [
     { label: "Email", href: "mailto:personal@debojit.in", icon: "Email" },
     { label: "Google Scholar", href: "https://scholar.google.com/citations?user=jxemIXEAAAAJ&hl=en", icon: "Google Scholar" },
