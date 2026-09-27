@@ -25,7 +25,14 @@ export const profile = {
   ],
   highlightNames: ["Debojit Das", "D. Das"],
   about: [
-    "During undergrad, whenever I showed my mother a fancy robot demo or one of my own research videos, her very Bengali response was often: “কাজের কাজ কী? আমার রান্নাঘরের কাজ করে দেবে?” (“But what useful thing does it actually do? Will it do my kitchen chores?”). I think that question stuck with me more than I realized, and perhaps says something about how far robotics still has to go beyond impressive demos.",
+    [
+      "During undergrad, whenever I showed my mother a fancy robot demo or one of my own research videos, her very Bengali response was often: ",
+      { text: "“কাজের কাজ কী? আমার রান্নাঘরের কাজ করে দেবে?”", strong: true },
+      " ",
+      { text: "(“But what useful thing does it actually do? Will it do my kitchen chores?”)", strong: true },
+      ". I think that question stuck with me more than I realized, and perhaps says something about how far robotics still has to go ",
+      { text: "beyond impressive demos.", strong: true }
+    ],
     [
       "What draws me to manipulation is the challenge of getting robots to coordinate their bodies, interact through contact, adapt when objects or environments behave unexpectedly, and remain capable outside carefully controlled setups. I’m especially interested in ideas that sit between ",
       { text: "structure and learning", strong: true },
