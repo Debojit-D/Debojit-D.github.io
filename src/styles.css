@@ -1070,7 +1070,7 @@ a:focus-visible {
 
 @media (min-width: 961px) {
   .featured-paper--secondary {
-    grid-template-columns: minmax(200px, 45%) minmax(0, 1fr);
+    grid-template-columns: minmax(200px, 1fr) max-content;
     grid-template-areas:
       "media actions"
       "copy copy";
@@ -1079,7 +1079,7 @@ a:focus-visible {
   .featured-paper--secondary .paper-figure {
     grid-area: media;
     width: 100%;
-    max-width: 360px;
+    max-width: 420px;
   }
 
   .featured-paper--secondary .featured-paper-actions-slot {
@@ -1088,6 +1088,7 @@ a:focus-visible {
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+    max-width: 160px;
   }
 
   .featured-paper--secondary .featured-paper-actions-slot .action-links {
