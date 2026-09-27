@@ -531,10 +531,12 @@ function FeaturedPaper({ paper, githubStats, variant = "hero" }) {
   );
 }
 
-function PublicationVisual({ paper }) {
+function PublicationVisual({ paper, compact = false }) {
+  const figureClassName = `paper-figure${compact ? " paper-figure--thumb" : ""}`;
+
   if (paper.video) {
     return (
-      <div className="paper-figure">
+      <div className={figureClassName}>
         <video
           src={paper.video}
           autoPlay
@@ -549,14 +551,14 @@ function PublicationVisual({ paper }) {
 
   if (!paper.image) {
     return (
-      <div className="paper-figure paper-figure-fallback">
-        <span>{paper.group ?? paper.type ?? "Research"}</span>
+      <div className={`${figureClassName} paper-figure-fallback`}>
+        {compact ? null : <span>{paper.group ?? paper.type ?? "Research"}</span>}
       </div>
     );
   }
 
   return (
-    <div className="paper-figure">
+    <div className={figureClassName}>
       <picture>
         {isRasterImage(paper.image) ? <source srcSet={toWebpPath(paper.image)} type="image/webp" /> : null}
         <img src={paper.image} alt={`${paper.title} visual summary`} loading="lazy" decoding="async" />
@@ -568,6 +570,7 @@ function PublicationVisual({ paper }) {
 function CompactPaper({ paper, githubStats }) {
   return (
     <article className="compact-paper-row">
+      <PublicationVisual paper={paper} compact />
       <PublicationMeta paper={paper} compact />
       <div className="compact-main">
         <h4>{paper.title}</h4>
