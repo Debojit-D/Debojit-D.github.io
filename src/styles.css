@@ -21,8 +21,8 @@
   --border-strong: #c9c9c9;
   --accent: #0d0d0d;
   --accent-wash: #f4f4f4;
-  --link-highlight: rgba(37, 99, 235, 0.16);
-  --link-highlight-hover: rgba(37, 99, 235, 0.32);
+  --link-blue: #2563eb;
+  --link-blue-hover: #1d4ed8;
   --nav-text: #5a5a5a;
   --chip-text: #4f4f4f;
   --icon-text: #3d3d3d;
@@ -55,8 +55,8 @@
   --border-strong: #3d3d3d;
   --accent: #ffffff;
   --accent-wash: rgba(255, 255, 255, 0.06);
-  --link-highlight: rgba(96, 165, 250, 0.22);
-  --link-highlight-hover: rgba(96, 165, 250, 0.4);
+  --link-blue: #60a5fa;
+  --link-blue-hover: #93c5fd;
   --nav-text: #a5a5a5;
   --chip-text: #b4b4b4;
   --icon-text: #cfcfcf;
@@ -932,16 +932,12 @@ a:focus-visible {
 }
 
 .intro-copy a {
-  color: var(--ink);
-  background-color: var(--link-highlight);
-  border-radius: 3px;
-  padding: 0.05em 0.2em;
-  margin: 0 -0.2em;
-  transition: background-color 200ms ease;
+  color: var(--link-blue);
+  transition: color 200ms ease;
 }
 
 .intro-copy a:hover {
-  background-color: var(--link-highlight-hover);
+  color: var(--link-blue-hover);
 }
 
 .focus-row {
