@@ -50,6 +50,7 @@ export const publications = [
     tags: ["bimanual manipulation", "grasp selection", "constrained motion"],
     featured: true,
     featuredLevel: "secondary",
+    video: "/videos/icra2027-teaser.mp4",
     links: []
   },
   {
