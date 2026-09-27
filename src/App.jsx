@@ -479,7 +479,8 @@ function DonutChart({ title, data }) {
 }
 
 function PublicationGroup({ title, papers, githubStats }) {
-  const highlighted = papers.filter((paper) => paper.featured);
+  const hero = papers.filter((paper) => paper.featured && (paper.featuredLevel ?? "hero") === "hero");
+  const secondary = papers.filter((paper) => paper.featured && paper.featuredLevel === "secondary");
   const compact = papers.filter((paper) => !paper.featured);
 
   return (
@@ -487,10 +488,17 @@ function PublicationGroup({ title, papers, githubStats }) {
       <h3 id={`group-${slugify(title)}`}>
         <span>{title}</span>
       </h3>
-      {highlighted.length ? (
+      {hero.length ? (
         <div className="highlight-list">
-          {highlighted.map((paper) => (
+          {hero.map((paper) => (
             <FeaturedPaper key={paper.title} paper={paper} githubStats={githubStats} />
+          ))}
+        </div>
+      ) : null}
+      {secondary.length ? (
+        <div className="featured-secondary-grid">
+          {secondary.map((paper) => (
+            <FeaturedPaper key={paper.title} paper={paper} githubStats={githubStats} variant="secondary" />
           ))}
         </div>
       ) : null}
@@ -505,9 +513,11 @@ function PublicationGroup({ title, papers, githubStats }) {
   );
 }
 
-function FeaturedPaper({ paper, githubStats }) {
+function FeaturedPaper({ paper, githubStats, variant = "hero" }) {
+  const className = variant === "secondary" ? "featured-paper featured-paper--secondary" : "featured-paper";
+
   return (
-    <article className="featured-paper">
+    <article className={className}>
       <PublicationVisual paper={paper} />
       <div className="featured-paper-copy">
         <PublicationMeta paper={paper} />
@@ -529,14 +539,9 @@ function PublicationVisual({ paper }) {
           src={paper.video}
           autoPlay
           muted
+          loop
           playsInline
           preload="auto"
-          onEnded={(event) => {
-            const video = event.currentTarget;
-            video.currentTime = 0;
-            const playPromise = video.play();
-            if (playPromise) playPromise.catch(() => {});
-          }}
         />
       </div>
     );

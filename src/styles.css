@@ -1004,6 +1004,13 @@ a:focus-visible {
   margin-bottom: 22px;
 }
 
+.featured-secondary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
 .featured-paper {
   position: relative;
   display: grid;
@@ -1039,6 +1046,14 @@ a:focus-visible {
 .featured-paper:hover::before,
 .featured-paper:focus-within::before {
   transform: scaleY(1);
+}
+
+.featured-paper--secondary {
+  grid-template-columns: 1fr;
+}
+
+.featured-paper--secondary .featured-paper-copy h4 {
+  font-size: 1.05rem;
 }
 
 .paper-figure {
@@ -2031,6 +2046,10 @@ a.timeline-place:hover {
 
   .sidebar-collapsible.is-open {
     display: block;
+  }
+
+  .featured-secondary-grid {
+    grid-template-columns: 1fr;
   }
 }
 
