@@ -1,6 +1,5 @@
 import rosconThumbnail from "../pictures/talks/roscon-india-2025.jpg";
 import tedxThumbnail from "../pictures/talks/tedx-2025.jpg";
-import roboticsCafeThumbnail from "../pictures/talks/robotics-cafe-2026.jpg";
 
 export const featuredTalks = [
   {
@@ -28,7 +27,6 @@ export const talks = [
     place: "Robotics Café — Student Talks",
     detail: "Invited talk on dynamical-systems coordination for multi-arm robotic manipulation.",
     type: "Research Talk",
-    image: roboticsCafeThumbnail,
     watchHref: "https://youtu.be/RMxiNDzZmRE?si=jahQ1v57OoHIEgnK"
   }
 ];
