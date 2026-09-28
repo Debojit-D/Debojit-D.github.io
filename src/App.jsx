@@ -722,7 +722,20 @@ function Timeline({ items }) {
               </a>
             ) : null}
           </div>
-          <time>{item.period}</time>
+          <div className="timeline-side">
+            <time>{item.period}</time>
+            {item.image ? (
+              <a
+                className="timeline-thumb"
+                href={item.watchHref || item.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Watch: ${item.title}`}
+              >
+                <img src={item.image} alt="" loading="lazy" decoding="async" />
+              </a>
+            ) : null}
+          </div>
         </div>
       ))}
     </div>

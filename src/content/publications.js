@@ -39,8 +39,9 @@ export const publications = [
     featuredLevel: "secondary",
     video: "/videos/redundancy-optimization-teaser.mp4",
     links: [
-      { label: "DOI", href: "https://doi.org/10.1108/IR-05-2026-0221" },
       { label: "Project Page", href: "https://debojit-d.github.io/Bimanual-Redundancy-Optimization/" },
+      { label: "Video", href: "https://www.youtube.com/watch?v=CubFLF5DAzE&feature=youtu.be" },
+      { label: "DOI", href: "https://doi.org/10.1108/IR-05-2026-0221" },
       { label: "Code", href: "https://github.com/Debojit-D/Bimanual-Redundancy-Optimization" }
     ]
   },
