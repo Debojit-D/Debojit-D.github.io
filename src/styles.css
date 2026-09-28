@@ -1309,7 +1309,7 @@ a:focus-visible {
 
 .compact-paper-row {
   display: grid;
-  grid-template-columns: 185px 150px minmax(0, 1fr) max-content;
+  grid-template-columns: 231px 150px minmax(0, 1fr) max-content;
   gap: 20px;
   align-items: start;
   border-bottom: 1px solid var(--border-soft);
