@@ -21,8 +21,6 @@ export const publications = [
     group: "Robotics & Control",
     authors: "S. Kumar, S. Barat, D. Das, S. Jain, R. Kumar, H. J. Palanthandalam-Madapusi",
     tags: ["contact-rich manipulation", "compliant control"],
-    featured: true,
-    featuredLevel: "secondary",
     video: "/videos/snapfit-teaser.mp4",
     links: [{ label: "Paper", href: "https://arxiv.org/abs/2511.18153" }]
   },
@@ -75,6 +73,7 @@ export const publications = [
     group: "Robotics & Control",
     authors: "S. Barat, S. Patidar, D. Das, S. Jadav, S. Kumar, H. J. Palanthandalam-Madapusi",
     tags: ["iterative learning control"],
+    video: "/videos/ilc-teaser.mp4",
     links: []
   },
   {
