@@ -1070,18 +1070,18 @@ a:focus-visible {
 
 @media (min-width: 961px) {
   .featured-paper--secondary {
-    grid-template-columns: minmax(200px, 1fr) 132px;
-    column-gap: 14px;
-    row-gap: 26px;
+    grid-template-columns: 1fr;
+    row-gap: 16px;
     grid-template-areas:
-      "media actions"
-      "copy copy";
+      "media"
+      "copy"
+      "actions";
   }
 
   .featured-paper--secondary .paper-figure {
     grid-area: media;
     width: 100%;
-    max-width: 460px;
+    max-width: 540px;
   }
 
   .featured-paper--secondary .featured-paper-actions-slot {
@@ -1090,7 +1090,7 @@ a:focus-visible {
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    max-width: 132px;
+    max-width: none;
   }
 
   .featured-paper--secondary .featured-paper-actions-slot .action-links {

@@ -21,6 +21,9 @@ export const publications = [
     group: "Robotics & Control",
     authors: "S. Kumar, S. Barat, D. Das, S. Jain, R. Kumar, H. J. Palanthandalam-Madapusi",
     tags: ["contact-rich manipulation", "compliant control"],
+    featured: true,
+    featuredLevel: "secondary",
+    video: "/videos/snapfit-teaser.mp4",
     links: [{ label: "Paper", href: "https://arxiv.org/abs/2511.18153" }]
   },
   {
