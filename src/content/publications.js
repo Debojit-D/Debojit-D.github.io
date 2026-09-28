@@ -11,7 +11,10 @@ export const publications = [
     featured: true,
     featuredLevel: "hero",
     video: "/videos/consensus-ds.mp4",
-    links: [{ label: "Project Page", href: "https://debojit-d.github.io/consensus-handover/" }] // TODO: add ICRA proceedings link once indexed
+    links: [
+      { label: "Project Page", href: "https://debojit-d.github.io/consensus-handover/" },
+      { label: "Video", href: "https://youtu.be/zxFjl94DrLo?si=vlUwQgDcdpR0jtbN" }
+    ] // TODO: add ICRA proceedings link once indexed
   },
   {
     title: "Towards Coordinated Dual-Arm SnapFit Assembly Skill for Delicate Applications",
@@ -84,6 +87,7 @@ export const publications = [
     group: "Robotics & Control",
     authors: "D. Das, H. Ruparel, H. J. Palanthandalam-Madapusi",
     tags: ["LLM/VLM-conditioned control"],
+    comingSoon: true,
     links: []
   }
 ];

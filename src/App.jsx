@@ -556,9 +556,10 @@ function PublicationVisual({ paper, compact = false }) {
   }
 
   if (!paper.image) {
+    const label = paper.comingSoon ? "Coming Soon" : (paper.group ?? paper.type ?? "Research");
     return (
       <div className={`${figureClassName} paper-figure-fallback`}>
-        {compact ? null : <span>{paper.group ?? paper.type ?? "Research"}</span>}
+        {compact && !paper.comingSoon ? null : <span>{label}</span>}
       </div>
     );
   }
