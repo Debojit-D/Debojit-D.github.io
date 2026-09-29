@@ -27,7 +27,7 @@ export const publications = [
     video: "/videos/snapfit-teaser.mp4",
     links: [
       { label: "Project Page", href: "https://shr-eyas.github.io/SNAP/" },
-      { label: "Paper", href: "https://arxiv.org/abs/2511.18153" }
+      { label: "Preprint", href: "https://arxiv.org/abs/2511.18153" }
     ]
   },
   {
