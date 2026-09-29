@@ -25,7 +25,10 @@ export const publications = [
     authors: "S. Kumar, S. Barat, D. Das, S. Jain, R. Kumar, H. J. Palanthandalam-Madapusi",
     tags: ["contact-rich manipulation", "compliant control"],
     video: "/videos/snapfit-teaser.mp4",
-    links: [{ label: "Paper", href: "https://arxiv.org/abs/2511.18153" }]
+    links: [
+      { label: "Project Page", href: "https://shr-eyas.github.io/SNAP/" },
+      { label: "Paper", href: "https://arxiv.org/abs/2511.18153" }
+    ]
   },
   {
     title: "Task-Specific Manipulability Metrics for Redundancy Optimization in Cooperative Manipulation",
@@ -67,6 +70,7 @@ export const publications = [
     group: "Robotics & Control",
     authors: "S. Barat, V. K. Joshi, D. Das, H. J. Palanthandalam-Madapusi",
     tags: ["grasping", "manipulability"],
+    image: "images/grasp-dexterity-index.jpg",
     links: [{ label: "Preprint", href: "https://doi.org/10.21203/rs.3.rs-9620791/v1" }]
   },
   {
@@ -78,7 +82,7 @@ export const publications = [
     authors: "S. Barat, S. Patidar, D. Das, S. Jadav, S. Kumar, H. J. Palanthandalam-Madapusi",
     tags: ["iterative learning control"],
     video: "/videos/ilc-teaser.mp4",
-    links: []
+    links: [{ label: "Video", href: "https://youtu.be/EI7hdj-l4BQ" }]
   },
   {
     title: "Dynamical-System Coordination Primitives for Bimanual Manipulation via Semantic Grounding",
