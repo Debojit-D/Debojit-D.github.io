@@ -1,4 +1,5 @@
 export const news = [
+  { date: "2026.10", icon: "release", text: "\"Consensus Driven Dynamical Systems Control for Dual-Arm Handover\" is now available in the IEEE ICRA 2026 proceedings on IEEE Xplore.", href: "https://ieeexplore.ieee.org/document/11696649" },
   { date: "2026.05", icon: "visit", text: "Began a Visiting Foreign Researcher appointment at Tohoku University's Smart Robots Design Lab (LOTUS Programme), hosted by Prof. Ankit A. Ravankar.", href: "#about" },
   { date: "2026.03", icon: "accepted", text: "\"Consensus-Driven Dynamical Systems Control for Dual-Arm Handover\" accepted at IEEE ICRA 2026, Vienna.", href: "#publications" },
   { date: "2025.12", icon: "talk", text: "Gave a talk at ROSCon India 2025 on why robots can backflip but still can't make a vada pav.", href: "#about" },

@@ -13,8 +13,10 @@ export const publications = [
     video: "/videos/consensus-ds.mp4",
     links: [
       { label: "Project Page", href: "https://debojit-d.github.io/consensus-handover/" },
-      { label: "Video", href: "https://youtu.be/zxFjl94DrLo?si=vlUwQgDcdpR0jtbN" }
-    ] // TODO: add ICRA proceedings link once indexed
+      { label: "IEEE Xplore", href: "https://ieeexplore.ieee.org/document/11696649" },
+      { label: "Video", href: "https://youtu.be/zxFjl94DrLo?si=vlUwQgDcdpR0jtbN" },
+      { label: "Code", href: "https://github.com/Debojit-D/Consensus-DS" }
+    ]
   },
   {
     title: "Towards Coordinated Dual-Arm SnapFit Assembly Skill for Delicate Applications",
